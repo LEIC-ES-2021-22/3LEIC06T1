@@ -12,10 +12,11 @@
 # UniPay
 
 ## Vision Stament
-To do (see the Product vision template here: https://uxstudioteam.com/ux-blog/product-vision/)
+For the UP students who want to verify their university related payments on the phone,the UniPay is an App for iOS and Android that let's students check their net balance and main transactions on the phone, unlike our competitors that don't have a viable mobile option, our product has a acessible mobile interface that lets users easily get all the information they desire.
+
 
 ## Main Features
- - Verify all main movements of the student's wallet
+ - Verify all main transactions of the student's wallet
  - Check expenses that still need to be paid
  - Check current balance of the account
  - Check taxpayer number associated with the account
