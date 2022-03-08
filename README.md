@@ -2,9 +2,10 @@
 
 ## Members
 
-- Luís Viegas up201904979
+
 - André Santos up201907879
 - João Andrade up201905589
+- Luís Viegas up201904979
 - Sérgio Estêvão up201905680
 
 
@@ -14,18 +15,10 @@
 To do (see the Product vision template here: https://uxstudioteam.com/ux-blog/product-vision/)
 
 ## Main Features
- - Verificar propinas por pagar 
- - Verificar propinas pagas 
- - Verifcar saldo
- - Verificar certidões 
- - Verificar pagamentos de exames realizados em época especial
- - Verificar pagamentos de juros de mora
- - Verificaçar pagamentos de acto fora de prazo
- - Verificar pagamentos de exames por melhoria de classificação 
- - Verificar pagamento de seguro escolar
- - Verificar Extrato da conta
- - Verificar NIF
-...
+ - Verify all main movements of the student's wallet
+ - Check expenses that still need to be paid
+ - Check current balance of the account
+ - Check taxpayer number associated with the account
 
 ## Required API's
-- Api que extraia informações relacionadas com a conta corrente.
+- API that extract all information related to the student's wallet
