@@ -2,10 +2,10 @@
 
 ## Members
 
-Luís Viegas up201904979
-André Santos up201907879
-João Andrade up201905589
-Sérgio Estêvão up201905680
+-Luís Viegas up201904979
+-André Santos up201907879
+-João Andrade up201905589
+-Sérgio Estêvão up201905680
 
 ...
 
