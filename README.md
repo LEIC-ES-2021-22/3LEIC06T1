@@ -5,21 +5,22 @@
 
 - André Santos up201907879
 - João Andrade up201905589
+- José Silva up201904775
 - Luís Viegas up201904979
 - Sérgio Estêvão up201905680
 
 
-# UniPay
+# UniServices
 
-## Vision Stament
-For the UP students who want to verify their university related payments on the phone,the UniPay is an App for iOS and Android that let's students check their net balance and main transactions on the phone, unlike our competitors that don't have a viable mobile option, our product has a acessible mobile interface that lets users easily get all the information they desire.
+## Vision Statement
+For the FEUP students who want to stay informed about FEUP's services, the UniServices is an App for iOS and Android that let's students check information, location and operating hours of FEUP's main services on the phone, unlike our competitors that don't have a viable mobile option, our product has a acessible mobile interface that lets users easily get all the information they desire.
 
 
 ## Main Features
- - Verify all main transactions of the student's wallet
- - Check expenses that still need to be paid
- - Check current balance of the account
- - Check taxpayer number associated with the account
+ - Check the location of FEUP's main services
+ - Verify the information of each FEUP's services
+ - Check you position and how far you are from a specific service
+ - Make a reminder to go to a specific service
 
 ## Required API's
-- API that extract all information related to the student's wallet
+- API that extract all information related to the FEUP's services
