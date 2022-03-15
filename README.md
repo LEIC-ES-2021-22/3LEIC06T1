@@ -25,3 +25,4 @@ For the FEUP students who want to stay informed about FEUP's services, the UniSe
 
 ## Required API's
 - API that extract all information related to the FEUP's services
+- Google Maps API
