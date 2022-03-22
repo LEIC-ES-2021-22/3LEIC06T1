@@ -1,7 +1,30 @@
-# 3LEIC06T1
+_UniServices_ Development Report
 
-## Members
+Welcome to the documentation pages of the _UniServices_!
 
+You can find here detailed about the product (or mini-app or module), from a high-level vision to low-level implementation decisions, a kind of Software Development Report, organized by discipline (as of RUP):
+
+- Business modeling
+- [Product Vision]()
+- [Elevator Pitch]
+- [Requirements]()
+- [Use Case Model]()
+- [User stories]()
+- [Domain model
+- [Architecture and Design]
+- [Logical architecture]
+- [Physical architecture]
+- [Prototype]
+- [Implementation]
+- [Test]
+- [Configuration and change management]
+- [Project management]
+
+So far, contributions are exclusively made by the initial team, but we hope to open them to the community, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
+
+Please contact us!
+
+Thank you!
 
 - André Santos up201907879
 - João Andrade up201905589
@@ -9,20 +32,4 @@
 - Luís Viegas up201904979
 - Sérgio Estêvão up201905680
 
-
-# UniServices
-
-## Vision Statement
-For the FEUP students who want to stay informed about FEUP's services, the UniServices is an App for iOS and Android that let's students check information, location and operating hours of FEUP's main services on the phone, unlike our competitors that don't have a viable mobile option, our product has a acessible mobile interface that lets users easily get all the information they desire.
-
-
-## Main Features
- - Check the location of FEUP's main services
- - Verify the information of each FEUP's services
- - Check if a service is currently open (according to the student's local time)
- - Check you position and how far you are from a specific service
- - Make a reminder to go to a specific service
-
-## Required API's
-- API that extract all information related to the FEUP's services
-- Google Maps API
+---
