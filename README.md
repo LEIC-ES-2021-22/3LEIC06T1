@@ -8,7 +8,7 @@ You can find here detailed about the product (or mini-app or module), from a hig
 - [Product Vision](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/ProductVision.md)
 - [Elevator Pitch]
 - [Requirements]
-- [Use Case Model]
+- [Use Case Model](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/UseCases.md)
 - [User stories](https://github.com/LEIC-ES-2021-22/3LEIC06T1/issues)
 - [Domain model
 - [Architecture and Design]
