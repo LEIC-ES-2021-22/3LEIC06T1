@@ -77,11 +77,43 @@
 
 |||
 | --- | --- |
-| *Name* | Make a reminder |
+| *Name* | Manage reminders |
 | *Actor* | User |
-| *Description* | The user marks a reminder related to a service for a certain time |
+| *Description* | The user opens the menu with his info and the manage reminders features. |
 | *Preconditions* | - The user is in the main menu |
-| *Postconditions* | - A notification will be scheduled and popped at the specified time to the user. |
-| *Normal flow* | 1. The user goes to the main menu. <br> 2. The user selects the map option. 2. Navigates throught the map or service list in order to reach the one service information menu.| 3. The user schedules a reminder for the current service. 
-| *Alternative flows and exceptions* | [Lack of information failure] If, in step 3 of the normal flow there are mandatory fields missing when submitting the reminder, it won't work, and the system will redirect to the service information page again. |
+| *Postconditions* | - The user enters the manage reminders menu.|
+| *Normal flow* | 1. The user goes to the main menu. <br> 2. The user selects the manage reminders option. |
+| *Alternative flows and exceptions* | *None* |
 
+|||
+| --- | --- |
+| *Name* | Create reminder |
+| *Actor* | User |
+| *Description* | The user creates a reminder for the selected service. |
+| *Preconditions* | - The user is in the service information menu. |
+| *Postconditions* | - A notification will be scheduled and popped at the specified time to the user. |
+| *Normal flow* | 1. The user goes to the main menu. <br> 2. The user enters the service information menu either through the map or the list. <br> 3. The user selects the create reminder option. <br> 4. The user fills the data in need and submits it. <br>|
+| *Alternative flows and exceptions* | [Lack of information failure] If, in step 4 of the normal flow there are mandatory fields missing when submitting the reminder, it won't work, and the system will redirect to the service information page again. |
+
+|||
+| --- | --- |
+| Name | Delete Reminder |
+| Actor | User | 
+| Description | The user deletes an existing reminder |
+| Preconditions | - The user must be in the manage reminders menu |
+| Postconditions | - The reminder is deleted. |
+| Normal flow | 1. The user goes to the main menu. <br> 2. The user goes to the manage reminders menu. <br> 3. The user deletes the chosen reminder. <br> 4. The user confirms the deletion of the reminder  |
+| Alternative flows and exceptions | None |
+
+|||
+| --- | --- |
+| Name | Edit Reminder |
+| Actor | User | 
+| Description | The user edits an existing reminder |
+| Preconditions | - The user must be in the manage reminders menu<br> - The user is redirected back to the manage reminders menu|
+| Postconditions | - The edited reminder changes its details. |
+| Normal flow | 1. The user goes to the main menu. <br> 2. The user goes to the manage reminders menu. <br> 3. The user chooses the reminder he would like to edit. <br> 4. The user edits the chosen reminder and confirms its edition.|
+| Alternative flows and exceptions | [Lack of information failure] If, in step 4 of the normal flow there are mandatory fields missing when editing the reminder, it won't work, and the system will redirect to the manage reminders page. |
+
+
+- 
