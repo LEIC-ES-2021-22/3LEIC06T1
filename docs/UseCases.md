@@ -116,4 +116,13 @@
 | Alternative flows and exceptions | [Lack of information failure] If, in step 4 of the normal flow there are mandatory fields missing when editing the reminder, it won't work, and the system will redirect to the manage reminders page. |
 
 
-- 
+# Domain Model
+
+![Use cases](/images/esof_domain_model.png)
+
+## Tables
+- **Service**: information about each service
+- **Schedule**: information about a specific schedule of a service
+- **Location**: information about a service's location
+- **Reminder**: information about a reminder, created by a specific user for a specific service
+- **User**: information about each User
