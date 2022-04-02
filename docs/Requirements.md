@@ -1,7 +1,8 @@
-# Use Cases 
+# Requirements
+
+## Use Cases
 
 ![Use cases](/images/ESOF.png)
-
 
 |||
 | --- | --- |
@@ -116,11 +117,11 @@
 | Alternative flows and exceptions | [Lack of information failure] If, in step 4 of the normal flow there are mandatory fields missing when editing the reminder, it won't work, and the system will redirect to the manage reminders page. |
 
 
-# Domain Model
+## Domain Model
 
 ![Use cases](/images/esof_domain_model.png)
 
-## Tables
+### Tables
 - **Service**: information about each service
 - **Schedule**: information about a specific schedule of a service
 - **Location**: information about a service's location
