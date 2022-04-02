@@ -122,8 +122,8 @@
 ![Use cases](/images/esof_domain_model.png)
 
 ### Tables
-- **Service**: information about each service
-- **Schedule**: information about a specific schedule of a service
-- **Location**: information about a service's location
-- **Reminder**: information about a reminder, created by a specific user for a specific service
-- **User**: information about each User
+- **Service**: Contains the information about each service, mainly its contacts. 
+- **Schedule**: Contains the information about a specific schedule of a service. A full schedule row refers to a non closing sequence of hours in a service, so it can have a different morning and afternoon schedule, adding up to the possibility of having a online attendance schedule.
+- **Location**: Contains the information about a service's location. It stores the coordinates of the service in the world
+- **Reminder**: Contains the information about a reminder, created by a specific user for a specific service
+- **User**: Contains the information about each User who uses the app features.
