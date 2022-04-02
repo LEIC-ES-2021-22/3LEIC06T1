@@ -25,6 +25,27 @@
 
 |||
 | --- | --- |
+| *Name* | Delete Reminder |
+| *Actor* | User | 
+| *Description* | The user deletes an existing reminder |
+| *Preconditions* | - The user must be in the manage reminders menu |
+| *Postconditions* | - The reminder is deleted. |
+| *Normal flow* | 1. The user goes to the main menu. <br> 2. The user goes to the manage reminders menu. <br> 3. The user deletes the chosen reminder. <br> 4. The user confirms the deletion of the reminder  |
+| *Alternative flows and exceptions* | *None* |
+
+|||
+| --- | --- |
+| *Name* | Edit Reminder |
+| *Actor* | User | 
+| *Description* | The user edits an existing reminder |
+| *Preconditions* | - The user must be in the manage reminders menu<br> - The user is redirected back to the manage reminders menu|
+| *Postconditions* | - The edited reminder changes its details. |
+| *Normal flow* | 1. The user goes to the main menu. <br> 2. The user goes to the manage reminders menu. <br> 3. The user chooses the reminder he would like to edit. <br> 4. The user edits the chosen reminder and confirms its edition.|
+| *Alternative flows and exceptions* | [Lack of information failure] If, in step 4 of the normal flow there are mandatory fields missing when editing the reminder, it won't work, and the system will redirect to the manage reminders page. | 
+
+
+|||
+| --- | --- |
 | *Name* | Check the map |
 | *Actor* |  Authenticated User | 
 | *Description* | The authenticated user opens the map |
