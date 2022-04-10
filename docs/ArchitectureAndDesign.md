@@ -4,7 +4,7 @@ In this section we'll describe the logical and physical architectures of our pro
 
 ## Logical architecture
 In order to provide long-term maintenance of the code and allow easy understanding about it, our project was diveded in six sections:
-- **Services UI**: 
+- **Service UI**: Module responsible for drawing the app and allows the iteration user/program.
 - **Service Logic**: responsible for housing the models for each struture of the database and the programs logic
 - **Reminder Database Schema**: module that saves the information regarding the reminders
 - **ASSO API**: external API responsible for supplying information about FEUP's services
