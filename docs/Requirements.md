@@ -121,7 +121,7 @@
 
 ![Use cases](/images/esof_domain_model.png)
 
-### Tables
+### Classes
 - **Service**: Contains the information about each service, mainly its contacts. 
 - **Schedule**: Contains the information about a specific schedule of a service. A full schedule row refers to a non closing sequence of hours in a service, so it can have a different morning and afternoon schedule, adding up to the possibility of having a online attendance schedule.
 - **Location**: Contains the information about a service's location. It stores the coordinates of the service in the world

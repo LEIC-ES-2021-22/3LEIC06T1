@@ -23,7 +23,11 @@ In our app's physical architecture we have 3 entities featured: the Back-end Ser
 
 The following features were implemented:
 
-- Transição para ???
+- A splash screen in the beginning with the duration of 3 seconds that precedes the main page of the application.
 
-- Botão que ...
+![Physical architecture](/images/splash.png)
 
+
+- The main page which has a logo and a slogan related to the purpose of our application as well as a button which when pressed redirects us to the About Us page (where all our contacts and information is).
+
+![Physical architecture](/images/main_page.png)
