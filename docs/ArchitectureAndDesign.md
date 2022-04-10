@@ -14,7 +14,7 @@ In order to provide long-term maintenance of the code and allow easy understandi
 
 ## Physical architecture
 
-In our app's physical architecture we have 3 entities featured: the Back-end Server where get the all information regarding FEUP's services, the Google Servers where we get the information and data to build the map features, and the Flutter app itself, which the user interact with.
+In our app's physical architecture we have 3 entities featured: the Back-end Server where get the all information regarding FEUP's services, the Google Servers where we get the information and data to build the map features, and the Flutter app itself, which the user interacts with.
 
 ![Physical architecture](/images/physical_architecture.png)
 
