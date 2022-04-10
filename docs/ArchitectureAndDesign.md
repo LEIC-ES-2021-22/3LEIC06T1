@@ -4,17 +4,17 @@ In this section we'll describe the logical and physical architectures of our pro
 
 ## Logical architecture
 In order to provide long-term maintenance of the code and allow easy understanding about it, our project was diveded in six sections:
-- **Services UI**:
-- **Service Logic**:
-- **Reminder Database Schema**:
-- **ASSO API**:
-- **Google API**:
+- **Services UI**: 
+- **Service Logic**: responsible for housing the models for each struture of the database and the programs logic
+- **Reminder Database Schema**: module that saves the information regarding the reminders
+- **ASSO API**: external API responsible for supplying information about FEUP's services
+- **Google API**: external API responsible for supplying information the FEUP's map
 
 ![Logical architecture](/images/logical_architecture.png)
 
 ## Physical architecture
 
-In our app's physical architecture we have 3 entities featured: the User Client Machine where... ,  the Back-end Server where ... , and the Google Servers where we ...
+In our app's physical architecture we have 3 entities featured: the Back-end Server where get the all information regarding FEUP's services, the Google Servers where we get the information and data to build the map features, and the Flutter app itself, which the user interact with.
 
 ![Physical architecture](/images/physical_architecture.png)
 
