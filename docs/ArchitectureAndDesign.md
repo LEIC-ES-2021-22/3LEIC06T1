@@ -21,7 +21,7 @@ In our app's physical architecture we have 3 entities featured: the Back-end Ser
 
 ## Vertical prototype
 
-The following user stories were implemented:
+The following features were implemented:
 
 - Transição para ???
 
