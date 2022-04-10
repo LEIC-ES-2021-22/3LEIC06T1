@@ -11,9 +11,9 @@ You can find here detailed about the product (or mini-app or module), from a hig
 - [Use Case Model](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/Requirements.md)
 - [User stories](https://github.com/LEIC-ES-2021-22/3LEIC06T1/issues)
 - [Domain model](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/Requirements.md)
-- [Architecture and Design]
-- [Logical architecture]
-- [Physical architecture]
+- [Architecture and Design](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/ArchitectureAndDesign.md)
+- [Logical architecture](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/ArchitectureAndDesign.md)
+- [Physical architecture](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/ArchitectureAndDesign.md)
 - [Prototype](https://github.com/LEIC-ES-2021-22/3LEIC06T1/tree/main/src)
 - [Implementation]
 - [Test]
