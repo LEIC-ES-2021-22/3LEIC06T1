@@ -1,6 +1,6 @@
-# esof
+# Esof
 
-A new Flutter project.
+You can install the application using UniServices.apk located in this directory.
 
 ## Getting Started
 
