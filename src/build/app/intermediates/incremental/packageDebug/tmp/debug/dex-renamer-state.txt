@@ -1,0 +1,4 @@
+#Fri Apr 08 16:45:05 BST 2022
+base.0=C\:\\Users\\ASUS\\StudioProjects\\ESOF\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
