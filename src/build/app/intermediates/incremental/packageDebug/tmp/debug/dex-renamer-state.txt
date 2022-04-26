@@ -1,0 +1,4 @@
+#Tue Apr 26 11:43:50 WEST 2022
+base.0=/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
