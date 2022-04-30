@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../utils/constants.dart' as Constants;
 
 class NavigationDrawer extends StatefulWidget {
@@ -18,6 +19,7 @@ class NavigationDrawerState extends State<NavigationDrawer> {
   NavigationDrawerState({@required this.parentContext}) {}
 
   Map drawerItems = {};
+  Map uniServicesItems = {};
 
   @override
   void initState() {
@@ -33,6 +35,11 @@ class NavigationDrawerState extends State<NavigationDrawer> {
       Constants.navReminders: _onSelectPage,
       Constants.navAbout: _onSelectPage,
       Constants.navBugReport: _onSelectPage,
+    };
+
+    uniServicesItems = {Constants.navServices: _onSelectPage,
+      Constants.navMap: _onSelectPage,
+      Constants.navReminders: _onSelectPage,
     };
   }
 
@@ -89,18 +96,29 @@ class NavigationDrawerState extends State<NavigationDrawer> {
   }
 
   Widget createDrawerNavigationOption(String d) {
+    final MediaQueryData queryData = MediaQuery.of(context);
     return Container(
         decoration: _getSelectionDecoration(d),
         child: ListTile(
+          trailing: (uniServicesItems.containsKey(d))
+            ? SvgPicture.asset(
+            'assets/images/ni_logo.svg',
+            color: Colors.cyan,
+            //fit: BoxFit.fitHeight,
+            width: queryData.size.height / 16,
+            height: queryData.size.height / 16,
+            )
+            : null,
           title: Container(
             padding: EdgeInsets.only(bottom: 3.0, left: 20.0),
             child: Text(d,
                 style: TextStyle(
                     fontSize: 18.0,
-                    color: Theme.of(context).accentColor,
-                    fontWeight: FontWeight.normal))
+                    color: (uniServicesItems.containsKey(d))
+                    ? Colors.cyan
+                    : Theme.of(context).accentColor,
+                    fontWeight: FontWeight.normal)),
           ),
-
           dense: true,
           key: Key('key_$d'), //BMCL
           contentPadding: EdgeInsets.all(0.0),
