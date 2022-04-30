@@ -1,4 +1,4 @@
 io/flutter/plugins/GeneratedPluginRegistrant.java
  io.flutter.plugins.GeneratedPluginRegistrant
-com/example/esof/BuildConfig.java
- com.example.esof.BuildConfig
+pt/up/fe/ni/uni/BuildConfig.java
+ pt.up.fe.ni.uni.BuildConfig

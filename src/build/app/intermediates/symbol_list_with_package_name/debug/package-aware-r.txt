@@ -1,4 +1,4 @@
-com.example.esof
+pt.up.fe.ni.uni
 attr activityAction
 attr activityName
 attr alpha
@@ -33,6 +33,7 @@ color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
 color notification_action_color_filter
 color notification_icon_bg_color
+color splash_color
 dimen compat_button_inset_horizontal_material
 dimen compat_button_inset_vertical_material
 dimen compat_button_padding_horizontal_material
@@ -68,6 +69,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable splash
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
 id accessibility_custom_action_1
@@ -153,9 +155,9 @@ layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
 mipmap ic_launcher
+mipmap launch_image
 string status_bar_notification_info_overflow
 style LaunchTheme
-style NormalTheme
 style TextAppearance_Compat_Notification
 style TextAppearance_Compat_Notification_Info
 style TextAppearance_Compat_Notification_Line2
