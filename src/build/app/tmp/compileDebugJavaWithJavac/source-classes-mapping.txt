@@ -1,4 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-pt/up/fe/ni/uni/BuildConfig.java
- pt.up.fe.ni.uni.BuildConfig
