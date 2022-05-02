@@ -104,7 +104,6 @@ class NavigationDrawerState extends State<NavigationDrawer> {
             ? SvgPicture.asset(
             'assets/images/ni_logo.svg',
             color: Colors.cyan,
-            //fit: BoxFit.fitHeight,
             width: queryData.size.height / 16,
             height: queryData.size.height / 16,
             )

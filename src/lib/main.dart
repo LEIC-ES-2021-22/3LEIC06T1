@@ -25,6 +25,14 @@ import 'package:uni/view/theme.dart';
 import 'controller/on_start_up.dart';
 import 'model/schedule_page_model.dart';
 
+//uni services
+import 'package:uni/view/Pages/services_page_view.dart';
+import 'package:uni/view/Pages/map_page_view.dart';
+import 'package:uni/view/Pages/reminders_page_view.dart';
+
+//uni services
+
+
 /// Stores the state of the app
 final Store<AppState> state = Store<AppState>(appReducers,
     /* Function defined in the reducers file */
@@ -100,13 +108,13 @@ class MyAppState extends State<MyApp> {
                 //uni_services------------------------------------------
               case '/' + Constants.navServices:
                 return PageTransition.makePageTransition(
-                    page: AboutPageView(), settings: settings); // to be changed
+                    page: ServicePageView(), settings: settings); // to be changed
               case '/' + Constants.navMap:
                 return PageTransition.makePageTransition(
-                    page: AboutPageView(), settings: settings); // to be changed
+                    page: MapPageView(), settings: settings); // to be changed
               case '/' + Constants.navReminders:
                 return PageTransition.makePageTransition(
-                    page: AboutPageView(), settings: settings); // to be changed
+                    page: RemindersPageView(), settings: settings); // to be changed
                 //uni_services------------------------------------------
 
 

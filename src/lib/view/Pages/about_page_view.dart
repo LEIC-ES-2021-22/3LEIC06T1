@@ -15,6 +15,7 @@ class AboutPageViewState extends GeneralPageViewState {
     final MediaQueryData queryData = MediaQuery.of(context);
     return ListView(
       children: <Widget>[
+
         Container(
             child: SvgPicture.asset(
           'assets/images/ni_logo.svg',
