@@ -19,13 +19,6 @@ class AboutPageViewState extends GeneralPageViewState {
           'Mapa',
           textAlign: TextAlign.center,
         ),
-        Container(
-            child: SvgPicture.asset(
-              'assets/images/ni_logo.svg',
-              color: Theme.of(context).accentColor,
-              width: queryData.size.height / 7,
-              height: queryData.size.height / 7,
-            )),
         Center(
             child: Padding(
               padding: EdgeInsets.only(
@@ -33,9 +26,10 @@ class AboutPageViewState extends GeneralPageViewState {
                   right: queryData.size.width / 12,
                   top: queryData.size.width / 12,
                   bottom: queryData.size.width / 12),
-              child: Column(children: <Widget>[
-                TermsAndConditions(),
-              ]),
+              child: Text(
+                'Ola eu sou um widget',
+                textAlign: TextAlign.center,
+                )
             ))
       ],
     );
