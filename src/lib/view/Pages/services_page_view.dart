@@ -3,45 +3,43 @@ import 'package:uni/model/app_state.dart';
 import 'package:uni/model/entities/exam.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:uni/model/entities/service.dart';
+import 'package:uni/utils/serviceMock.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
-import 'package:uni/view/Widgets/exam_page_title_filter.dart';
+import 'package:uni/view/Widgets/Service_page_filter.dart';
 import 'package:uni/view/Widgets/row_container.dart';
 import 'package:uni/view/Widgets/schedule_row.dart';
 import 'package:uni/view/Widgets/title_card.dart';
 
+
 class ServicePageView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => ExamsPageViewState();
+  State<StatefulWidget> createState() => SericesPageViewState();
 }
 
-/// Tracks the state of `ExamsLists`.
-class ExamsPageViewState extends SecondaryPageViewState {
+/// Tracks the state of `ServicesLists`.
+class SericesPageViewState extends SecondaryPageViewState {
   final double borderRadius = 10.0;
 
   @override
   Widget getBody(BuildContext context) {
     return StoreConnector<AppState, List<dynamic>>(
       converter: (store) {
-        final List<Exam> exams = store.state.content['exams'];
-        final Map<String, bool> filteredExams =
-        store.state.content['filteredExams'];
-        return exams
-            .where((exam) =>
-        filteredExams[Exam.getExamTypeLong(exam.examType)] ?? true)
-            .toList();
+
+
       },
-      builder: (context, exams) {
-        return ExamsList(exams: exams);
+      builder: (context, services) {
+        return ServiceList( services: ServiceMock.getServices());
       },
     );
   }
 }
 
-/// Manages the 'Exams' section in the user's personal area and 'Exams Map'.
-class ExamsList extends StatelessWidget {
-  final List<Exam> exams;
+/// Manages the 'Service' section in the user's personal area and 'Exams Map'.
+class ServiceList extends StatelessWidget {
+  final List<Service> services;
 
-  ExamsList({Key key, @required this.exams}) : super(key: key);
+  ServiceList({Key key, @required this.services}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -49,89 +47,59 @@ class ExamsList extends StatelessWidget {
         Container(
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: this.createExamsColumn(context, exams),
+            children: this.createServiceColumn(context, services)
           ),
         )
       ],
     );
   }
 
-  /// Creates a column with all the user's exams.
-  List<Widget> createExamsColumn(context, exams) {
+  List<Widget> createServiceColumn(context, services) {
     final List<Widget> columns = <Widget>[];
-    columns.add(ExamPageTitleFilter(
+    columns.add(ServicePageTitleFilter(
       name: 'Serviços',
     ));
 
-    if (exams.length == 1) {
-      columns.add(this.createExamCard(context, [exams[0]]));
-      return columns;
-    }
 
-    final List<Exam> currentDayExams = <Exam>[];
-
-    for (int i = 0; i < exams.length; i++) {
-      if (i + 1 >= exams.length) {
-        if (exams[i].day == exams[i - 1].day &&
-            exams[i].month == exams[i - 1].month) {
-          currentDayExams.add(exams[i]);
-        } else {
-          if (currentDayExams.isNotEmpty) {
-            columns.add(this.createExamCard(context, currentDayExams));
-          }
-          currentDayExams.clear();
-          currentDayExams.add(exams[i]);
-        }
-        columns.add(this.createExamCard(context, currentDayExams));
-        break;
-      }
-      if (exams[i].day == exams[i + 1].day &&
-          exams[i].month == exams[i + 1].month) {
-        currentDayExams.add(exams[i]);
-      } else {
-        currentDayExams.add(exams[i]);
-        columns.add(this.createExamCard(context, currentDayExams));
-        currentDayExams.clear();
-      }
-    }
+    columns.add(this.createServiceCard(context, services));
     return columns;
   }
 
-  Widget createExamCard(context, exams) {
-    final keyValue = exams.map((exam) => exam.toString()).join();
+  Widget createServiceCard(context, services) {
+    final keyValue = services.map((service) => service.toString()).join();
     return Container(
       key: Key(keyValue),
       margin: EdgeInsets.only(bottom: 8),
       padding: EdgeInsets.all(8),
-      child: this.createExamsCards(context, exams),
+      child: this.createServicesCards(context, services),
     );
   }
 
-  Widget createExamsCards(context, exams) {
-    final List<Widget> examCards = <Widget>[];
-    examCards.add(TitleCard(
-        day: exams[0].day, weekDay: exams[0].weekDay, month: exams[0].month));
-    for (int i = 0; i < exams.length; i++) {
-      examCards.add(this.createExamContext(context, exams[i]));
+  Widget createServicesCards(context, services) {
+    final List<Widget> serviceCards = <Widget>[];
+    for (int i = 0; i < services.length; i++) {
+      serviceCards.add(this.createServiceContext(context, services[i]));
     }
-    return Column(children: examCards);
+    return Column(children: serviceCards);
   }
 
-  Widget createExamContext(context, exam) {
-    final keyValue = '${exam.toString()}-exam';
+  Widget createServiceContext(context, service) {
+    final keyValue = '${service.toString()}-service';
     return Container(
         key: Key(keyValue),
         margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
         child: RowContainer(
-            color: isHighlighted(exam)
-                ? Theme.of(context).hintColor
-                : Theme.of(context).backgroundColor,
+            color: Theme.of(context).backgroundColor,
             child: ScheduleRow(
-                subject: exam.subject,
-                rooms: exam.rooms,
-                begin: exam.begin,
-                end: exam.end,
-                type: exam.examType,
-                date: exam.date)));
+                subject: service.name,
+                rooms: [''],
+                begin: service.startTime,
+                end: service.endTime)));
   }
+
+
 }
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+

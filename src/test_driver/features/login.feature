@@ -34,7 +34,7 @@ Feature: Open pages
 
   Scenario: login and access the "Serviços" page
     When I fill the "usernameinput" field with "up123456789"
-    And  I fill the "passwordinput" field with "123456789"
+    And  I fill the "passwordinput" field with "12345679"
     And I tap the "entrar" button
     And I open the drawer
     And I tap the "key_Serviços" button
@@ -71,3 +71,18 @@ Feature: Open pages
     And I pause for 1 seconds
     Then I expect the text "Texto 1" to be absent
 
+  Scenario: login and access the "Serviços" page and see the "SERAC" panel
+    When I fill the "usernameinput" field with "up123456789"
+    And  I fill the "passwordinput" field with "12345679"
+    And I tap the "entrar" button
+    And I open the drawer
+    And I tap the "key_Serviços" button
+    Then I expect the text "SERAC" to be present
+
+  Scenario: login and access the "Serviços" page and see the "SDInf" panel
+    When I fill the "usernameinput" field with "up123456789"
+    And  I fill the "passwordinput" field with "12345679"
+    And I tap the "entrar" button
+    And I open the drawer
+    And I tap the "key_Serviços" button
+    Then I expect the text "SDInf" to be present
