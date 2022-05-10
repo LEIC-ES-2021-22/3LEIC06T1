@@ -87,3 +87,6 @@ lib/generated_plugin_registrant.dart
 
 #Tests
 test_report.json
+
+#key.properties
+/android/key.properties
