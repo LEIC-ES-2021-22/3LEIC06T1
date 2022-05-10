@@ -14,7 +14,7 @@ https://github.com/LEIC-ES-2021-22/3LEIC06T1/releases/tag/v0.5
 
 
 ### What should we do differently?
-- Revision of the work load for each member;
+- Revision of the work load for each member, since some members didn't do the excpected issues;
 - Better communication;
 - Trying to reach our sprint's end goals, as expected;
 
