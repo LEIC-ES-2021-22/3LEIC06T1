@@ -17,6 +17,7 @@ import 'package:uni/view/Pages/bus_stop_next_arrivals_page.dart';
 import 'package:uni/view/Pages/exams_page_view.dart';
 import 'package:uni/view/Pages/home_page_view.dart';
 import 'package:uni/view/Pages/logout_route.dart';
+import 'package:uni/view/Pages/service_description_view.dart';
 import 'package:uni/view/Pages/splash_page_view.dart';
 import 'package:uni/view/Widgets/page_transition.dart';
 import 'package:uni/view/navigation_service.dart';
@@ -108,7 +109,7 @@ class MyAppState extends State<MyApp> {
                 //uni_services------------------------------------------
               case '/' + Constants.navServices:
                 return PageTransition.makePageTransition(
-                    page: ServicePageView(), settings: settings); // to be changed
+                    page: ServiceDescriptionPageView(), settings: settings); // to be changed
               case '/' + Constants.navMap:
                 return PageTransition.makePageTransition(
                     page: MapPageView(), settings: settings); // to be changed
