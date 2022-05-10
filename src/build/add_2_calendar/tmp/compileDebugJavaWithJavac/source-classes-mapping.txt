@@ -1,0 +1,4 @@
+com/javih/add2calendar/Add2CalendarPlugin.java
+ com.javih.add2calendar.Add2CalendarPlugin
+com/javih/add_2_calendar/BuildConfig.java
+ com.javih.add_2_calendar.BuildConfig

@@ -1,0 +1,166 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="pt.up.fe.ni.uni"
+4    android:versionCode="35"
+5    android:versionName="1.1.1" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="20"
+8-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:38:5-66
+11-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:38:22-64
+12    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+12-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:39:5-72
+12-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:39:22-70
+13    <uses-permission android:name="android.permission.READ_CALENDAR" />
+13-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:40:5-71
+13-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:40:22-69
+14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+14-->[:connectivity] /home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/connectivity/intermediates/merged_manifest/release/AndroidManifest.xml:7:5-79
+14-->[:connectivity] /home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/connectivity/intermediates/merged_manifest/release/AndroidManifest.xml:7:22-76
+15    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+15-->[:connectivity] /home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/connectivity/intermediates/merged_manifest/release/AndroidManifest.xml:8:5-76
+15-->[:connectivity] /home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/connectivity/intermediates/merged_manifest/release/AndroidManifest.xml:8:22-73
+16
+17    <uses-feature
+17-->[com.google.android.gms:play-services-maps:18.0.2] /home/sergio/.gradle/caches/transforms-2/files-2.1/4d76f910dd856fe3dd0f2d8bc801352a/jetified-play-services-maps-18.0.2/AndroidManifest.xml:26:5-28:35
+18        android:glEsVersion="0x00020000"
+18-->[com.google.android.gms:play-services-maps:18.0.2] /home/sergio/.gradle/caches/transforms-2/files-2.1/4d76f910dd856fe3dd0f2d8bc801352a/jetified-play-services-maps-18.0.2/AndroidManifest.xml:27:9-41
+19        android:required="true" />
+19-->[com.google.android.gms:play-services-maps:18.0.2] /home/sergio/.gradle/caches/transforms-2/files-2.1/4d76f910dd856fe3dd0f2d8bc801352a/jetified-play-services-maps-18.0.2/AndroidManifest.xml:28:9-32
+20
+21    <queries>
+21-->[com.google.android.gms:play-services-maps:18.0.2] /home/sergio/.gradle/caches/transforms-2/files-2.1/4d76f910dd856fe3dd0f2d8bc801352a/jetified-play-services-maps-18.0.2/AndroidManifest.xml:30:5-34:15
+22
+23        <!-- Needs to be explicitly declared on Android R+ -->
+24        <package android:name="com.google.android.apps.maps" />
+24-->[com.google.android.gms:play-services-maps:18.0.2] /home/sergio/.gradle/caches/transforms-2/files-2.1/4d76f910dd856fe3dd0f2d8bc801352a/jetified-play-services-maps-18.0.2/AndroidManifest.xml:33:9-64
+24-->[com.google.android.gms:play-services-maps:18.0.2] /home/sergio/.gradle/caches/transforms-2/files-2.1/4d76f910dd856fe3dd0f2d8bc801352a/jetified-play-services-maps-18.0.2/AndroidManifest.xml:33:18-61
+25    </queries>
+26    <!--
+27 io.flutter.app.FlutterApplication is an android.app.Application that
+28         calls FlutterMain.startInitialization(this); in its onCreate method.
+29         In most cases you can leave this as-is, but you if you want to provide
+30         additional functionality it is fine to subclass or reimplement
+31         FlutterApplication and put your custom class here.
+32    -->
+33    <application
+34        android:name="android.app.Application"
+34-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:9:9-42
+35        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+35-->[androidx.core:core:1.6.0] /home/sergio/.gradle/caches/transforms-2/files-2.1/616b51fd43b7e50cf53c169aeb75cc32/core-1.6.0/AndroidManifest.xml:24:18-86
+36        android:icon="@mipmap/ic_launcher"
+36-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:11:9-43
+37        android:label="uni" >
+37-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:10:9-28
+38        <meta-data
+38-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:13:9-14:70
+39            android:name="com.google.android.geo.API_KEY"
+39-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:13:20-65
+40            android:value="AIzaSyC9x83OiMRuZdV4TabKfkgWVOZ6pqllYGw" />
+40-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:14:13-68
+41
+42        <activity
+42-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:17:9-31:20
+43            android:name="pt.up.fe.ni.uni.MainActivity"
+43-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:18:13-41
+44            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+44-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:21:13-163
+45            android:hardwareAccelerated="true"
+45-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:22:13-47
+46            android:launchMode="singleTop"
+46-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:19:13-43
+47            android:theme="@style/LaunchTheme"
+47-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:20:13-47
+48            android:windowSoftInputMode="adjustResize" >
+48-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:23:13-55
+49            <intent-filter>
+49-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:24:13-27:29
+50                <action android:name="android.intent.action.MAIN" />
+50-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:25:17-68
+50-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:25:25-66
+51
+52                <category android:name="android.intent.category.LAUNCHER" />
+52-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:26:17-76
+52-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:26:27-74
+53            </intent-filter>
+54
+55            <meta-data
+55-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:28:13-30:66
+56                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+56-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:29:17-81
+57                android:resource="@drawable/launch_background" />
+57-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:30:17-63
+58        </activity>
+59        <!--
+60             Don't delete the meta-data below.
+61             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+62        -->
+63        <meta-data
+63-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:34:9-36:33
+64            android:name="flutterEmbedding"
+64-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:35:13-44
+65            android:value="2" />
+65-->/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/android/app/src/main/AndroidManifest.xml:36:13-30
+66
+67        <activity
+67-->[:url_launcher_android] /home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:8:9-11:74
+68            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+68-->[:url_launcher_android] /home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:9:13-74
+69            android:exported="false"
+69-->[:url_launcher_android] /home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:10:13-37
+70            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+70-->[:url_launcher_android] /home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-71
+71
+72        <uses-library
+72-->[androidx.window:window:1.0.0-beta04] /home/sergio/.gradle/caches/transforms-2/files-2.1/83cb8bbc532cffa14556003fd4bbf50b/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+73            android:name="androidx.window.extensions"
+73-->[androidx.window:window:1.0.0-beta04] /home/sergio/.gradle/caches/transforms-2/files-2.1/83cb8bbc532cffa14556003fd4bbf50b/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+74            android:required="false" />
+74-->[androidx.window:window:1.0.0-beta04] /home/sergio/.gradle/caches/transforms-2/files-2.1/83cb8bbc532cffa14556003fd4bbf50b/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+75        <uses-library
+75-->[androidx.window:window:1.0.0-beta04] /home/sergio/.gradle/caches/transforms-2/files-2.1/83cb8bbc532cffa14556003fd4bbf50b/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+76            android:name="androidx.window.sidecar"
+76-->[androidx.window:window:1.0.0-beta04] /home/sergio/.gradle/caches/transforms-2/files-2.1/83cb8bbc532cffa14556003fd4bbf50b/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+77            android:required="false" /> <!-- Needs to be explicitly declared on P+ -->
+77-->[androidx.window:window:1.0.0-beta04] /home/sergio/.gradle/caches/transforms-2/files-2.1/83cb8bbc532cffa14556003fd4bbf50b/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+78        <uses-library
+78-->[com.google.android.gms:play-services-maps:18.0.2] /home/sergio/.gradle/caches/transforms-2/files-2.1/4d76f910dd856fe3dd0f2d8bc801352a/jetified-play-services-maps-18.0.2/AndroidManifest.xml:39:9-41:40
+79            android:name="org.apache.http.legacy"
+79-->[com.google.android.gms:play-services-maps:18.0.2] /home/sergio/.gradle/caches/transforms-2/files-2.1/4d76f910dd856fe3dd0f2d8bc801352a/jetified-play-services-maps-18.0.2/AndroidManifest.xml:40:13-50
+80            android:required="false" />
+80-->[com.google.android.gms:play-services-maps:18.0.2] /home/sergio/.gradle/caches/transforms-2/files-2.1/4d76f910dd856fe3dd0f2d8bc801352a/jetified-play-services-maps-18.0.2/AndroidManifest.xml:41:13-37
+81
+82        <activity
+82-->[com.google.android.gms:play-services-base:18.0.1] /home/sergio/.gradle/caches/transforms-2/files-2.1/99f88c07c72a68545949a581e66ba12a/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+83            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+83-->[com.google.android.gms:play-services-base:18.0.1] /home/sergio/.gradle/caches/transforms-2/files-2.1/99f88c07c72a68545949a581e66ba12a/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+84            android:exported="false"
+84-->[com.google.android.gms:play-services-base:18.0.1] /home/sergio/.gradle/caches/transforms-2/files-2.1/99f88c07c72a68545949a581e66ba12a/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+85            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+85-->[com.google.android.gms:play-services-base:18.0.1] /home/sergio/.gradle/caches/transforms-2/files-2.1/99f88c07c72a68545949a581e66ba12a/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+86
+87        <meta-data
+87-->[com.google.android.gms:play-services-basement:18.0.0] /home/sergio/.gradle/caches/transforms-2/files-2.1/d374c4f1107abdf330a1759a27b74599/jetified-play-services-basement-18.0.0/AndroidManifest.xml:21:9-23:69
+88            android:name="com.google.android.gms.version"
+88-->[com.google.android.gms:play-services-basement:18.0.0] /home/sergio/.gradle/caches/transforms-2/files-2.1/d374c4f1107abdf330a1759a27b74599/jetified-play-services-basement-18.0.0/AndroidManifest.xml:22:13-58
+89            android:value="@integer/google_play_services_version" />
+89-->[com.google.android.gms:play-services-basement:18.0.0] /home/sergio/.gradle/caches/transforms-2/files-2.1/d374c4f1107abdf330a1759a27b74599/jetified-play-services-basement-18.0.0/AndroidManifest.xml:23:13-66
+90
+91        <provider
+91-->[androidx.lifecycle:lifecycle-process:2.2.0] /home/sergio/.gradle/caches/transforms-2/files-2.1/fc1bac4f07ec655a6ddc80cf36765802/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:25:9-29:43
+92            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+92-->[androidx.lifecycle:lifecycle-process:2.2.0] /home/sergio/.gradle/caches/transforms-2/files-2.1/fc1bac4f07ec655a6ddc80cf36765802/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:26:13-79
+93            android:authorities="pt.up.fe.ni.uni.lifecycle-process"
+93-->[androidx.lifecycle:lifecycle-process:2.2.0] /home/sergio/.gradle/caches/transforms-2/files-2.1/fc1bac4f07ec655a6ddc80cf36765802/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:27:13-69
+94            android:exported="false"
+94-->[androidx.lifecycle:lifecycle-process:2.2.0] /home/sergio/.gradle/caches/transforms-2/files-2.1/fc1bac4f07ec655a6ddc80cf36765802/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:28:13-37
+95            android:multiprocess="true" />
+95-->[androidx.lifecycle:lifecycle-process:2.2.0] /home/sergio/.gradle/caches/transforms-2/files-2.1/fc1bac4f07ec655a6ddc80cf36765802/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:29:13-40
+96    </application>
+97
+98</manifest>

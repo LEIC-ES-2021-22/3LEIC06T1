@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/package_info_plus/intermediates/incremental/mergeReleaseResources/merged.dir/values-el/values-el.xml",
+            "map": [
+                {
+                    "source": "/home/sergio/.gradle/caches/transforms-2/files-2.1/616b51fd43b7e50cf53c169aeb75cc32/core-1.6.0/res/values-el/values-el.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/package_info_plus/intermediates/res/merged/release/values-el/values-el.xml",
+            "map": [
+                {
+                    "source": "/home/sergio/.gradle/caches/transforms-2/files-2.1/616b51fd43b7e50cf53c169aeb75cc32/core-1.6.0/res/values-el/values-el.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

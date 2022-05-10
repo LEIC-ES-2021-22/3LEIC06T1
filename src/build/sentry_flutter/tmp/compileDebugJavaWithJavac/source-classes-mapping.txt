@@ -1,0 +1,2 @@
+io/sentry/flutter/BuildConfig.java
+ io.sentry.flutter.BuildConfig

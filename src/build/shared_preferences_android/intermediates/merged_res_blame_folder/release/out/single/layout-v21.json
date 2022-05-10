@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/shared_preferences_android/intermediates/res/merged/release/layout-v21/notification_template_icon_group.xml",
+        "source": "/home/sergio/.gradle/caches/transforms-2/files-2.1/616b51fd43b7e50cf53c169aeb75cc32/core-1.6.0/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/shared_preferences_android/intermediates/res/merged/release/layout-v21/notification_action.xml",
+        "source": "/home/sergio/.gradle/caches/transforms-2/files-2.1/616b51fd43b7e50cf53c169aeb75cc32/core-1.6.0/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/shared_preferences_android/intermediates/res/merged/release/layout-v21/notification_action_tombstone.xml",
+        "source": "/home/sergio/.gradle/caches/transforms-2/files-2.1/616b51fd43b7e50cf53c169aeb75cc32/core-1.6.0/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/home/sergio/Documents/FEUP/ESOF/3LEIC06T1/src/build/shared_preferences_android/intermediates/res/merged/release/layout-v21/notification_template_custom_big.xml",
+        "source": "/home/sergio/.gradle/caches/transforms-2/files-2.1/616b51fd43b7e50cf53c169aeb75cc32/core-1.6.0/res/layout-v21/notification_template_custom_big.xml"
+    }
+]
