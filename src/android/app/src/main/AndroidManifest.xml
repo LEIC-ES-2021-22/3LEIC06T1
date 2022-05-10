@@ -9,6 +9,11 @@
         android:name="${applicationName}"
         android:label="uni"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC9x83OiMRuZdV4TabKfkgWVOZ6pqllYGw"/>
+
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
