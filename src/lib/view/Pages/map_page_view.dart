@@ -28,7 +28,7 @@ class AboutPageViewState extends GeneralPageViewState {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text("Feup's Map")),
+          title: const Center(child: Text("Mapa")),
           backgroundColor: Colors.cyan,
         ),
         body: GoogleMap(
