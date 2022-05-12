@@ -7,8 +7,7 @@ Feature: Open pages
 #    And I tap the "entrar" button
 #    Then I expect the text "Área Pessoal" to be present
 
-
- # Scenario: login and access the "Horário" page
+# Scenario: login and access the "Horário" page
   Scenario: Access the "Horário" page
     Given I am logged in
     And I open the drawer
@@ -79,7 +78,7 @@ Feature: Open pages
     And I tap the "SRH-service" button
     Then I expect the text "Os Serviços de Recursos Humanos tem como missão o recrutamento, a selecção e a integração, a gestão e o desenvolvimento dos recursos humanos da FEUP." to be present
 
-  Scenario: Access the "Serviço" page and see the "SRH" description
+  Scenario: Access the "Serviço" page and see the "SRH" schedule
     Given I am logged in
     And I open the drawer
     And I tap the "key_Serviços" button

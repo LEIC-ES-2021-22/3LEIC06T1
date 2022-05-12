@@ -132,7 +132,7 @@ class ServiceDesc extends StatelessWidget {
   }
 
   Widget createServiceDesc(context, service) {
-    final keyValue = '${service.toString()}-schedule';
+    final keyValue = '${service.toString()}-desc';
     return Container(
         key: Key(keyValue),
         margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
@@ -164,7 +164,6 @@ class ServiceDesc extends StatelessWidget {
                 ),
                 const SizedBox(height:20),
 
-
               ]
           ),
         )
@@ -194,7 +193,7 @@ class ServiceDesc extends StatelessWidget {
                 ),
                 const SizedBox(height:20),
                 Center(child:
-                      Text(service.startTime + '\n' + service.endTime,
+                      Text(service.startTime,
                         textAlign: TextAlign.end,
                         style: TextStyle(
                           color: Colors.black,
@@ -202,6 +201,15 @@ class ServiceDesc extends StatelessWidget {
                         )
                       )
                     ),
+                  Center(child:
+                    Text(service.endTime,
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                      )
+                    )
+                  ),
                   const SizedBox(height:20),
 
                 ]
