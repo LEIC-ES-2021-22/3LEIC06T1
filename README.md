@@ -15,7 +15,7 @@ You can find here detailed about the product (or mini-app or module), from a hig
 - [Logical architecture](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/ArchitectureAndDesign.md)
 - [Physical architecture](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/ArchitectureAndDesign.md)
 - [Prototype](https://github.com/LEIC-ES-2021-22/3LEIC06T1/tree/main/src)
-- [Implementation]
+- [Implementation](https://github.com/LEIC-ES-2021-22/3LEIC06T1/tree/main/docs/IterationLogs)
 - [Test]
 - [Configuration and change management]
 - [Project management]
