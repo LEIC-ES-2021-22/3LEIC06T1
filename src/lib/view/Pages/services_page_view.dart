@@ -6,6 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:uni/model/entities/service.dart';
 import 'package:uni/utils/serviceMock.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
+import 'package:uni/view/Pages/service_description_view.dart';
 import 'package:uni/view/Widgets/Service_page_filter.dart';
 import 'package:uni/view/Widgets/row_container.dart';
 import 'package:uni/view/Widgets/schedule_row.dart';
@@ -85,7 +86,14 @@ class ServiceList extends StatelessWidget {
 
   Widget createServiceContext(context, service) {
     final keyValue = '${service.toString()}-service';
-    return Container(
+    return GestureDetector(
+        onTap: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ServiceDescPageView(myService:service)),
+          );
+      },
+      child: Container(
         key: Key(keyValue),
         margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
         child: RowContainer(
@@ -94,12 +102,15 @@ class ServiceList extends StatelessWidget {
                 subject: service.name,
                 rooms: [''],
                 begin: service.startTime,
-                end: service.endTime)));
+                end: service.endTime
+            )
+          )
+      )
+    );
   }
 
 
 }
 
-////////////////////////////////////////////////////////////////////////////////////////
 
 

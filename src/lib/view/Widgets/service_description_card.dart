@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class ServicePageTitleFilter extends StatelessWidget {
+class ServicePageTitle extends StatelessWidget {
   final String name;
 
-  const ServicePageTitleFilter({Key key, @required this.name}) : super(key: key);
+  const ServicePageTitle({Key key, @required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +17,10 @@ class ServicePageTitleFilter extends StatelessWidget {
         ),
       ),
       alignment: Alignment.center,
-      child: const Text('Secretaria',
+      child: Text(name,
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: Colors.white,
+              color: Color(0xFF862B27),
               fontSize: 40,
               fontWeight: FontWeight.bold
           )

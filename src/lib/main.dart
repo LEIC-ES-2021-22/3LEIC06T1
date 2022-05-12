@@ -109,7 +109,7 @@ class MyAppState extends State<MyApp> {
                 //uni_services------------------------------------------
               case '/' + Constants.navServices:
                 return PageTransition.makePageTransition(
-                    page: ServiceDescriptionPageView(), settings: settings); // to be changed
+                    page: ServicePageView(), settings: settings); // to be changed
               case '/' + Constants.navMap:
                 return PageTransition.makePageTransition(
                     page: MapPageView(), settings: settings); // to be changed
