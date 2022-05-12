@@ -71,3 +71,17 @@ Feature: Open pages
     And I open the drawer
     And I tap the "key_Serviços" button
     Then I expect the text "SDInf" to be present
+
+  Scenario: Access the "Serviço" page and see the "SRH" description
+    Given I am logged in
+    And I open the drawer
+    And I tap the "key_Serviços" button
+    And I tap the "SRH-service" button
+    Then I expect the text "Os Serviços de Recursos Humanos tem como missão o recrutamento, a selecção e a integração, a gestão e o desenvolvimento dos recursos humanos da FEUP." to be present
+
+  Scenario: Access the "Serviço" page and see the "SRH" description
+    Given I am logged in
+    And I open the drawer
+    And I tap the "key_Serviços" button
+    And I tap the "SRH-service" button
+    Then I expect the text "10:00-12:00" to be present

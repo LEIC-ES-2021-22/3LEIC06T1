@@ -85,7 +85,7 @@ class ServiceList extends StatelessWidget {
   }
 
   Widget createServiceContext(context, service) {
-    final keyValue = '${service.toString()}-service';
+    final keyValue = '${service.name}-service';
     return GestureDetector(
         onTap: (){
           Navigator.push(
@@ -108,8 +108,6 @@ class ServiceList extends StatelessWidget {
       )
     );
   }
-
-
 }
 
 
