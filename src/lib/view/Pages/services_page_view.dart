@@ -26,8 +26,6 @@ class SericesPageViewState extends SecondaryPageViewState {
   Widget getBody(BuildContext context) {
     return StoreConnector<AppState, List<dynamic>>(
       converter: (store) {
-
-
       },
       builder: (context, services) {
         return ServiceList( services: ServiceMock.getServices());
