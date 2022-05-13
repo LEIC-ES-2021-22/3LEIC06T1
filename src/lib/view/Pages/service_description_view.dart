@@ -68,7 +68,7 @@ class ServiceDesc extends StatelessWidget {
                 this.createServiceDescCard(context, service),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     FloatingActionButton(
-                      backgroundColor:Theme.of(context).accentColor,
+                      backgroundColor: Colors.white,
                       onPressed: () {},
                       child: Icon(
                         Icons.location_on,
@@ -77,7 +77,7 @@ class ServiceDesc extends StatelessWidget {
                       ),
                     ),
                     FloatingActionButton(
-                      backgroundColor:Theme.of(context).accentColor,
+                      backgroundColor: Colors.white,
                       onPressed: () {},
                       child: Icon(
                         Icons.calendar_month,

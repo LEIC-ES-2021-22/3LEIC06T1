@@ -1,43 +1,180 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:uni/view/Pages/general_page_view.dart';
-import 'package:uni/view/Widgets/terms_and_conditions.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:uni/view/Pages/secondary_page_view.dart';
+import '../../model/app_state.dart';
+import '../../model/entities/reminder.dart';
+import '../Widgets/row_container.dart';
+import 'package:uni/utils/reminderMock.dart';
+
 
 class RemindersPageView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => AboutPageViewState();
+  State<StatefulWidget> createState() => RemindersPageViewState();
 }
 
-/// Manages the 'about' section of the app.
-class AboutPageViewState extends GeneralPageViewState {
+
+class RemindersPageViewState extends SecondaryPageViewState {
+  final double borderRadius = 10.0;
   @override
   Widget getBody(BuildContext context) {
-    final MediaQueryData queryData = MediaQuery.of(context);
+    return StoreConnector<AppState, List<dynamic>>(
+      converter: (store) {
+      },
+      builder: (context, reminders) {
+        return RemindersList(reminders: ReminderMock.getReminders());
+      },
+    );
+  }
+}
+
+class RemindersList extends StatelessWidget {
+  final List<Reminder> reminders;
+
+  RemindersList({Key key, @required this.reminders}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context,) {
     return ListView(
-      children: <Widget>[
-        Text(
-          'Reminders',
-          textAlign: TextAlign.center,
+        children: <Widget>[
+          Container(
+              margin: EdgeInsets.all(10),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  this.createRemindersListCard(context,reminders),
+                ],
+              )
+          ),
+        ]
+    );
+  }
+
+  Widget createRemindersListCard(context, reminders) {
+    final keyValue = '${reminders.toString()}-reminders';
+    return Container(
+      key: Key(keyValue),
+      margin: EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.all(8),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          this.createRemindersList(context, reminders),
+        ],
+      ),
+
+    );
+  }
+
+  Widget createReminderCard(context, reminder) {
+    final keyValue = '${reminder.toString()}-reminder';
+    return Container(
+      key: Key(keyValue),
+      margin: EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.all(8),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          this.createReminder(context, reminder),
+        ],
+      ),
+
+    );
+  }
+  Widget createRemindersList(context, reminders) {
+    final keyValue = '${reminders.toString()}-desc';
+    return Container(
+        key: Key(keyValue),
+        margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
+        child: RowContainer(
+          child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const SizedBox(height:20),
+                Center(child:
+                Text('Reminders',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    )
+                )
+                ),
+                const SizedBox(height:20),
+                createReminderCards(context,reminders)
+              ]
+          ),
+        )
+    );
+  }
+  Widget createReminderCards(context, reminders) {
+    final List<Widget> reminderCards = <Widget>[];
+    for (int i = 0; i < reminders.length; i++) {
+      reminderCards.add(this.createReminderCard(context, reminders[i]));
+    }
+    return Column(children: reminderCards);
+  }
+  Widget createReminder(context, reminder) {
+    final keyValue = '${reminder.toString()}-reminder';
+    return Container(
+        key: Key(keyValue),
+        margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
+        padding: EdgeInsets.all(13),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(
+              width: 1,
+              color: Colors.grey,
+            )
         ),
-        Container(
-            child: SvgPicture.asset(
-              'assets/images/ni_logo.svg',
-              color: Theme.of(context).accentColor,
-              width: queryData.size.height / 7,
-              height: queryData.size.height / 7,
-            )),
-        Center(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: queryData.size.width / 12,
-                  right: queryData.size.width / 12,
-                  top: queryData.size.width / 12,
-                  bottom: queryData.size.width / 12),
-              child: Column(children: <Widget>[
-                TermsAndConditions(),
-              ]),
-            ))
-      ],
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                  Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const SizedBox(height:10),
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child:
+                          Text(reminder.serviceName,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: Theme.of(context).accentColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize:20,
+                            )
+                          )
+                        ),
+                        const SizedBox(height:10),
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child:
+                        Text(reminder.date,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Theme.of(context).accentColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize:12,
+                            )
+                          )
+                        ),
+                        const SizedBox(height:10),
+                      ]
+                  ),
+                  FloatingActionButton.small(
+                    backgroundColor: Colors.white,
+                    onPressed: () {
+                    },
+                    child: Icon(
+                      Icons.delete  ,
+                      size: 25,
+                      color: Colors.black,
+                    ),
+                ),
+
+              ],
+            )
     );
   }
 }
