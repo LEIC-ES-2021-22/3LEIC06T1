@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 import '../../model/app_state.dart';
 import '../../model/entities/reminder.dart';
+import '../Widgets/make_reminder_menu.dart';
 import '../Widgets/row_container.dart';
 import 'package:uni/utils/reminderMock.dart';
 
@@ -119,13 +120,7 @@ class RemindersList extends StatelessWidget {
   Widget createReminder(context, reminder) {
     final keyValue = '${reminder.toString()}-reminder';
     return GestureDetector(
-            onTap: (){
-                Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EditRemindersPageView(myReminder: reminder)),
-              );
-            },
-
+            onTap: () => make_reminder_menu(context,reminder),
     child:
       Container(
           key: Key(keyValue),

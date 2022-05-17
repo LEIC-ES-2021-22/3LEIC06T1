@@ -80,7 +80,7 @@ class ServiceDesc extends StatelessWidget {
                     ),
                     FloatingActionButton(
                       backgroundColor: Colors.white,
-                      onPressed: () => make_reminder_menu(context),
+                      onPressed: () => make_reminder_menu(context,service),
                       child: Icon(
                         Icons.calendar_month,
                         size: 30,

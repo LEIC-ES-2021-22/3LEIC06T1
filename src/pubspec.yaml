@@ -54,6 +54,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   material_design_icons_flutter: ^5.0.6595
   google_maps_flutter: ^2.1.4
+  flutter_analog_clock: ^0.1.1
 
 
 dev_dependencies:
