@@ -5,6 +5,8 @@ import 'package:uni/model/entities/service.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 import 'package:uni/view/Widgets/row_container.dart';
 
+import 'package:uni/view/Widgets/make_reminder_menu.dart';
+
 class ServiceDescPageView extends StatefulWidget {
   final Service myService;
   ServiceDescPageView({
@@ -78,7 +80,7 @@ class ServiceDesc extends StatelessWidget {
                     ),
                     FloatingActionButton(
                       backgroundColor: Colors.white,
-                      onPressed: () {},
+                      onPressed: () => make_reminder_menu(context),
                       child: Icon(
                         Icons.calendar_month,
                         size: 30,
