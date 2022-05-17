@@ -6,6 +6,8 @@ import '../../model/entities/reminder.dart';
 import '../Widgets/row_container.dart';
 import 'package:uni/utils/reminderMock.dart';
 
+import 'edit_reminders_view.dart';
+
 
 class RemindersPageView extends StatefulWidget {
   @override
@@ -116,40 +118,49 @@ class RemindersList extends StatelessWidget {
   }
   Widget createReminder(context, reminder) {
     final keyValue = '${reminder.toString()}-reminder';
-    return Container(
-        key: Key(keyValue),
-        margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
-        padding: EdgeInsets.all(13),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(
-              width: 1,
-              color: Colors.grey,
-            )
-        ),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                  Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        const SizedBox(height:10),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child:
-                          Text(reminder.serviceName,
+    return GestureDetector(
+            onTap: (){
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditRemindersPageView(myReminder: reminder)),
+              );
+            },
+
+    child:
+      Container(
+          key: Key(keyValue),
+          margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
+          padding: EdgeInsets.all(13),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                width: 1,
+                color: Colors.grey,
+              )
+          ),
+          child:
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const SizedBox(height:10),
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child:
+                        Text(reminder.serviceName,
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Theme.of(context).accentColor,
                               fontWeight: FontWeight.bold,
                               fontSize:20,
                             )
-                          )
-                        ),
-                        const SizedBox(height:10),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child:
+                        )
+                    ),
+                    const SizedBox(height:10),
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child:
                         Text(reminder.date,
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -157,24 +168,25 @@ class RemindersList extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize:12,
                             )
-                          )
-                        ),
-                        const SizedBox(height:10),
-                      ]
-                  ),
-                  FloatingActionButton.small(
-                    backgroundColor: Colors.white,
-                    onPressed: () {
-                    },
-                    child: Icon(
-                      Icons.delete  ,
-                      size: 25,
-                      color: Colors.black,
+                        )
                     ),
+                    const SizedBox(height:10),
+                  ]
+              ),
+              FloatingActionButton.small(
+                backgroundColor: Colors.white,
+                onPressed: () {
+                },
+                child: Icon(
+                  Icons.delete  ,
+                  size: 25,
+                  color: Colors.black,
                 ),
+              ),
 
-              ],
-            )
+            ],
+          )
+      )
     );
   }
 }
