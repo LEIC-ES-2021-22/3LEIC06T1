@@ -1,27 +1,37 @@
-
 import 'dart:developer';
-
+import 'dart:async';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 class NotificationService {
   FlutterLocalNotificationsPlugin reminderNotifications;
-  num id_counter;
+  num idCounter;
   NotificationDetails generalNotificationDetails;
 
 
   NotificationService(){
-    var androidInit = new AndroidInitializationSettings('icon');
-    var iOSInit = new IOSInitializationSettings();
-    var initSettings = new InitializationSettings(android: androidInit, iOS: iOSInit);
+    final androidInit = AndroidInitializationSettings('icon');
+    final iOSInit = IOSInitializationSettings();
+    final initSettings = InitializationSettings(android: androidInit,
+                                              iOS: iOSInit);
     reminderNotifications.initialize(initSettings,
         onSelectNotification: onSelectNotification);
 
-    var androidDetails = new AndroidNotificationDetails("Reminder ID",
-        "Reminders");
-    var iOSDetails = new IOSNotificationDetails();
-    generalNotificationDetails = new NotificationDetails(android: androidDetails,iOS: iOSDetails);
+    final androidDetails = AndroidNotificationDetails('Reminder ID',
+                                                      'Reminders');
+    final iOSDetails = IOSNotificationDetails();
+    generalNotificationDetails = NotificationDetails(android: androidDetails,
+                                                     iOS: iOSDetails);
+    _setupTimezone();
+    idCounter = 0;
+  }
 
-    id_counter = 0;
+  Future _setupTimezone() async{
+    tz.initializeTimeZones();
+    final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(currentTimeZone));
   }
 
   Future onSelectNotification(String payload) async{
@@ -30,9 +40,11 @@ class NotificationService {
 
   Future addNotification(DateTime notifSchedule, Service service) async{
 
-    var scheduledTime = notifSchedule;
-    await reminderNotifications.zonedSchedule(id_counter, "Nome-Serviço", "dia e hora", scheduledTime, generalNotificationDetails);
-
+    await reminderNotifications.zonedSchedule(idCounter, "Nome-Serviço",
+        "dia e hora", tz.TZDateTime.from(notifSchedule, tz.local), generalNotificationDetails,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime);
+    idCounter += 1;
   }
 
   Future deleteNotification(num notificationID) async{
@@ -53,7 +65,8 @@ class NotificationService {
         var body = notif.body;
 
         deleteNotification(notificationID);
-        await reminderNotifications.zonedSchedule(id_counter, title, body, notifSchedule, generalNotificationDetails);
+        await reminderNotifications.zonedSchedule(idCounter, title, body, notifSchedule, generalNotificationDetails);
+        idCounter += 1;
         return;
       }
     }
