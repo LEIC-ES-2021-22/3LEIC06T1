@@ -1,16 +1,16 @@
 import 'dart:developer';
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
+import '../view/Pages/service_description_view.dart';
+
 class NotificationService {
-  FlutterLocalNotificationsPlugin reminderNotifications;
+  static FlutterLocalNotificationsPlugin reminderNotifications;
   num idCounter;
-  NotificationDetails generalNotificationDetails;
+  static NotificationDetails generalNotificationDetails;
 
 
   NotificationService(){
@@ -30,7 +30,7 @@ class NotificationService {
   }
 
   _initializeNotifications (){
-    final androidInit = AndroidInitializationSettings('icon');
+    final androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
     final iOSInit = IOSInitializationSettings();
     final initSettings = InitializationSettings(
         android: androidInit,
@@ -58,7 +58,10 @@ class NotificationService {
 
   Future _onSelectNotification(String payload) async{
     if(payload != null && payload.isNotEmpty){
-      //Navigator.of(context).push
+      /*Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ServiceDescPageView('/' + payload)),
+      );*/
     }
   }
 
@@ -97,11 +100,17 @@ class NotificationService {
 
     for(var notif in pendingNotificationRequests){
       if (notif.id == notificationID){
-        var title = notif.title;
-        var body = notif.body;
+        final title = notif.title;
+        final body = notif.body;
 
         deleteNotification(notificationID);
-        await reminderNotifications.zonedSchedule(idCounter, title, body, notifSchedule, generalNotificationDetails);
+        await reminderNotifications.zonedSchedule(
+            idCounter,
+            title,
+            body,
+            notifSchedule,
+            generalNotificationDetails
+        );
         idCounter += 1;
         return;
       }

@@ -58,6 +58,7 @@ Future<void> main() async {
         providers: [
           Provider<NotificationService>(
             create: (context) => NotificationService(),
+            lazy: false
           )
         ],
         child: MyApp(),

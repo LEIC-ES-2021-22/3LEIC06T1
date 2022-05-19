@@ -1,3 +1,5 @@
+import 'package:provider/provider.dart';
+import 'package:uni/controller/reminder_controller.dart';
 import 'package:uni/model/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -70,8 +72,16 @@ class ServiceDesc extends StatelessWidget {
                 this.createServiceDescCard(context, service),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     FloatingActionButton(
+                      heroTag: "locationButton",
                       backgroundColor: Colors.white,
-                      onPressed: () {},
+                      onPressed: () {
+                        //Using this to test the reminder creation
+                        Provider.of<NotificationService>(context, listen: false)
+                            .addNotification(
+                            DateTime.now().add(Duration(seconds: 5)),
+                            null
+                        );
+                      },
                       child: Icon(
                         Icons.location_on,
                         size: 30,
@@ -79,6 +89,7 @@ class ServiceDesc extends StatelessWidget {
                       ),
                     ),
                     FloatingActionButton(
+                      heroTag: "makeReminderButton",
                       backgroundColor: Colors.white,
                       onPressed: () => make_reminder_menu(context),
                       child: Icon(
