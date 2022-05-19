@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry/sentry.dart';
 import 'package:redux/redux.dart';
 import 'package:uni/controller/middleware.dart';
+import 'package:uni/controller/reminder_controller.dart';
 import 'package:uni/model/app_state.dart';
 import 'package:uni/redux/actions.dart';
 import 'package:uni/redux/reducers.dart';
@@ -51,7 +53,16 @@ Future<void> main() async {
       options.dsn =
           'https://a2661645df1c4992b24161010c5e0ecb@o553498.ingest.sentry.io/5680848';
     },
-    appRunner: () => {runApp(MyApp())},
+    appRunner: () => {runApp(
+      MultiProvider(
+        providers: [
+          Provider<NotificationService>(
+            create: (context) => NotificationService(),
+          )
+        ],
+        child: MyApp(),
+      ))
+    },
   );
 }
 
@@ -72,9 +83,16 @@ class MyApp extends StatefulWidget {
 
 /// Manages the app depending on its current state
 class MyAppState extends State<MyApp> {
-  MyAppState({@required this.state}) {}
-
   final Store<AppState> state;
+
+  MyAppState({@required this.state}) {
+    checkNotifications();
+  }
+
+  checkNotifications() async {
+    await Provider.of<NotificationService>(context, listen: false)
+        .checkForNotifications();
+  }
 
   @override
   Widget build(BuildContext context) {

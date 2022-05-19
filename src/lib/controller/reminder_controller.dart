@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -43,7 +44,7 @@ class NotificationService {
     final androidDetails = AndroidNotificationDetails(
       'Reminder ID',
       'Reminders',
-      channelDescription: "Reminder notification",
+      channelDescription: "Reminders' notification",
       importance: Importance.max,
       priority: Priority.max,
       enableVibration: true,
@@ -56,9 +57,9 @@ class NotificationService {
 
 
   Future _onSelectNotification(String payload) async{
-    //if(payload != null && payload.isNotEmpty){
-    //
-    //}
+    if(payload != null && payload.isNotEmpty){
+      //Navigator.of(context).push
+    }
   }
 
   checkForNotifications() async{
@@ -73,7 +74,8 @@ class NotificationService {
     await reminderNotifications.zonedSchedule(idCounter,
         'Nome-Serviço',
         'dia e hora',
-        tz.TZDateTime.from(notifSchedule, tz.local), generalNotificationDetails,
+        tz.TZDateTime.from(notifSchedule, tz.local),
+        generalNotificationDetails,
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
     );
