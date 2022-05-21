@@ -66,7 +66,7 @@ make_reminder_menu(context,reminder) {
                         )
                     ),
                   ],
-                  )
+                )
             ),
           const SizedBox(height:30),
           ClockDemo(myHour: reminder.date),
@@ -78,18 +78,30 @@ make_reminder_menu(context,reminder) {
                 fontWeight: FontWeight.bold,
                 fontSize:20,
               )
-          )
+          ),
+          const SizedBox(height:20),
+
+          /*FloatingActionButton(
+            backgroundColor: Colors.white,
+            onPressed: () {},
+            child: Icon(
+              Icons.location_on,
+              size: 30,
+              color: Colors.black,
+            ),
+          ),*/
         ],
       ),
+
       buttons: [
-        DialogButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(
-            "Edit",
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 20),
+          DialogButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              "Edit",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20),
             ),
-        )
+          )
         ]).show();
 }

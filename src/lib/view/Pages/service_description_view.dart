@@ -47,24 +47,6 @@ class ServiceDesc extends StatelessWidget {
           child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                /*Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-
-                  FloatingActionButton(
-                    backgroundColor:Theme.of(context).accentColor,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ServiceDescPageView(myService:service)),
-                      );
-                    },
-                    child: Icon(
-                      Icons.house_outlined ,
-                      size: 30,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-                ),*/
                 this.createServiceTitleCard(context, service),
                 this.createServiceScheduleCard(context, service),
                 this.createServiceDescCard(context, service),
