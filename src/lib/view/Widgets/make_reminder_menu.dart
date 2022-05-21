@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'analog_clock.dart';
+
 
 make_reminder_menu(context,reminder) {
   Alert(
@@ -26,6 +27,25 @@ make_reminder_menu(context,reminder) {
                     FloatingActionButton.small(
                       backgroundColor: Colors.white,
                       onPressed: () {
+                        DatePicker.showDatePicker(context,
+                            showTitleActions: true,
+                            minTime: DateTime.now(),
+                            maxTime: DateTime(2025, 12, 7),
+                            theme: DatePickerTheme(
+                                headerColor: Colors.lightBlueAccent,
+                                backgroundColor: Colors.white,
+                                itemStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                                doneStyle:
+                                TextStyle(color: Colors.white, fontSize: 16)),
+                            onChanged: (date) {
+                              print('change $date in time zone ' +
+                                  date.timeZoneOffset.inHours.toString());
+                            }, onConfirm: (date) {
+                              print('confirm $date');
+                            }, currentTime: DateTime.now(), locale: LocaleType.en);
                       },
                       child: Icon(
                         Icons.calendar_month_outlined,
