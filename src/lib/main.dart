@@ -48,6 +48,7 @@ SentryEvent beforeSend(SentryEvent event) {
 
 Future<void> main() async {
   OnStartUp.onStart(state);
+  WidgetsFlutterBinding.ensureInitialized();
   await SentryFlutter.init(
     (options) {
       options.dsn =
@@ -58,7 +59,6 @@ Future<void> main() async {
         providers: [
           Provider<NotificationService>(
             create: (context) => NotificationService(),
-            lazy: false
           )
         ],
         child: MyApp(),

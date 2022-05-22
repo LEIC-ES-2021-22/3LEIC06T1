@@ -8,12 +8,14 @@ import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import '../view/Pages/service_description_view.dart';
 
 class NotificationService {
-  static FlutterLocalNotificationsPlugin reminderNotifications;
+  FlutterLocalNotificationsPlugin reminderNotifications;
+  NotificationDetails generalNotificationDetails;
+
   num idCounter;
-  static NotificationDetails generalNotificationDetails;
 
 
   NotificationService(){
+    reminderNotifications = FlutterLocalNotificationsPlugin();
     _setupNotifications();
     idCounter = 0;
   }
@@ -26,17 +28,18 @@ class NotificationService {
   Future<void> _setupTimezone() async{
     tz.initializeTimeZones();
     final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
+
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
   }
 
-  _initializeNotifications (){
+  _initializeNotifications() async{
     final androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
     final iOSInit = IOSInitializationSettings();
     final initSettings = InitializationSettings(
         android: androidInit,
         iOS: iOSInit
     );
-    reminderNotifications.initialize(
+    await reminderNotifications.initialize(
         initSettings,
         onSelectNotification: _onSelectNotification
     );
@@ -54,8 +57,6 @@ class NotificationService {
         iOS: iOSDetails);
   }
 
-
-
   Future _onSelectNotification(String payload) async{
     if(payload != null && payload.isNotEmpty){
       /*Navigator.push(
@@ -72,9 +73,11 @@ class NotificationService {
     }
   }
 
+
   Future addNotification(DateTime notifSchedule, Service service) async{
 
-    await reminderNotifications.zonedSchedule(idCounter,
+    await reminderNotifications.zonedSchedule(
+         idCounter,
         'Nome-Serviço',
         'dia e hora',
         tz.TZDateTime.from(notifSchedule, tz.local),
