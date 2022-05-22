@@ -8,6 +8,7 @@ import 'package:uni/view/Widgets/row_container.dart';
 import 'package:uni/view/Widgets/make_reminder_menu.dart';
 
 class ServiceDescPageView extends StatefulWidget {
+
   final Service myService;
   ServiceDescPageView({
     this.myService

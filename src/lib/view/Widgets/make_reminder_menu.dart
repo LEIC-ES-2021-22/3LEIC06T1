@@ -5,7 +5,9 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'analog_clock.dart';
 
 
+
 make_reminder_menu(context,reminder) {
+  DateTime dateTime;
   Alert(
       context: context,
       title: '',
@@ -44,7 +46,8 @@ make_reminder_menu(context,reminder) {
                               print('change $date in time zone ' +
                                   date.timeZoneOffset.inHours.toString());
                             }, onConfirm: (date) {
-                              print('confirm $date');
+                              dateTime = date;
+                              print('confirm $dateTime');
                             }, currentTime: DateTime.now(), locale: LocaleType.en);
                       },
                       child: Icon(
@@ -80,7 +83,6 @@ make_reminder_menu(context,reminder) {
               )
           ),
           const SizedBox(height:20),
-
           /*FloatingActionButton(
             backgroundColor: Colors.white,
             onPressed: () {},
