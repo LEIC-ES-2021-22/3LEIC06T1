@@ -15,7 +15,6 @@ class RemindersPageView extends StatefulWidget {
   State<StatefulWidget> createState() => RemindersPageViewState();
 }
 
-
 class RemindersPageViewState extends SecondaryPageViewState {
   final double borderRadius = 10.0;
   @override
