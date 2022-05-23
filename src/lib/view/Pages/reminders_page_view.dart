@@ -52,6 +52,13 @@ class ReminderListState extends State<RemindersList>{
     });
   }
 
+  deleteNotification(){
+    setState(() {
+      Provider.of<NotificationService>(context, listen: false)
+          .deleteNotification(notificationID);
+    });
+  }
+
   editNotification(){
     setState(() {
       Provider.of<NotificationService>(context, listen: false)
@@ -231,6 +238,58 @@ class ReminderListState extends State<RemindersList>{
               FloatingActionButton.small(
                 backgroundColor: Colors.white,
                 onPressed: () {
+                  Alert(
+                      context: context,
+                      title: '',
+                      content:
+                      Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                          Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("Are you sure you want to delete this remainder?",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Theme
+                                    .of(context)
+                                    .accentColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              )
+                          )
+                      ),
+                      const SizedBox(height:15),
+                      ]
+                      ),
+                      buttons: [
+                        DialogButton(
+                          onPressed: () {
+                            notificationID = reminder.id;
+                            deleteNotification();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => RemindersPageView()),
+                            );
+                          },
+                          child: Text(
+                            "Delete",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18),
+                          ),
+                        ),
+                        DialogButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18),
+                          ),
+                        )
+                      ]).show();
                 },
                 child: Icon(
                   Icons.delete  ,

@@ -24,6 +24,7 @@ class ClockDemo extends StatefulWidget {
 class ClockDemoState extends State<ClockDemo> {
   TimeOfDay selectedTime;
   String textHolder;
+  DateTime clockTime;
 
   ClockDemoState(DateTime initDateTime){
     textHolder = initDateTime.toString().substring(11,16);
@@ -32,8 +33,8 @@ class ClockDemoState extends State<ClockDemo> {
 
   changeText(newText) {
     setState(() {
-      print(textHolder);
       textHolder = newText;
+      clockTime = DateTime.parse('2022-05-30 ' + '$textHolder' + ':00z');
     });
   }
 
@@ -63,7 +64,7 @@ class ClockDemoState extends State<ClockDemo> {
             mainAxisSize: MainAxisSize.max,
             children: [
               FlutterAnalogClock(
-                dateTime: DateTime.parse('2022-05-30 ' + '$textHolder' + ':00z'),
+                dateTime: clockTime,
                 dialPlateColor: Colors.white,
                 hourHandColor: Colors.black,
                 minuteHandColor: Colors.black,
@@ -75,12 +76,12 @@ class ClockDemoState extends State<ClockDemo> {
                 showBorder: true,
                 showTicks: true,
                 showMinuteHand: true,
-                showSecondHand: true,
+                showSecondHand: false,
                 showNumber: true,
                 borderWidth: 8.0,
                 hourNumberScale: .10,
                 hourNumbers: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'],
-                isLive: false,
+                isLive: true,
                 width: 150.0,
                 height: 150.0,
                 decoration: const BoxDecoration(),

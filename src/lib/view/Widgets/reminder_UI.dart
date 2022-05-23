@@ -84,8 +84,9 @@ class ReminderUIState extends State<ReminderUI>{
                               date.timeZoneOffset.inHours.toString());
                         },
                         onConfirm: (date) {
-                          calendarDateTime = date;
-                          print('confirm $calendarDateTime');
+                          setState(() {
+                            calendarDateTime = date;
+                          });
                         },
                         currentTime: initDateTime,
                         locale: LocaleType.pt);
