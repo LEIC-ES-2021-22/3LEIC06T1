@@ -106,10 +106,11 @@ class NotificationService {
   }
 
   Future getPendingNotifications() async{
-    final List<PendingNotificationRequest> pendingNotificationRequests =
-    await reminderNotifications.pendingNotificationRequests();
+    return reminderNotifications
+        .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>()
+        .getActiveNotifications();
 
-    return pendingNotificationRequests;
   }
 
   Future editNotification(num notificationID, DateTime notifSchedule) async{

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
+import '../../controller/reminder_controller.dart';
 import '../../model/app_state.dart';
 import '../../model/entities/reminder.dart';
+import '../Widgets/reminder_UI.dart';
 import '../Widgets/row_container.dart';
 import 'package:uni/utils/reminderMock.dart';
 
@@ -22,16 +27,66 @@ class RemindersPageViewState extends SecondaryPageViewState {
       converter: (store) {
       },
       builder: (context, reminders) {
-        return RemindersList(reminders: ReminderMock.getReminders());
+        return RemindersList();
       },
     );
   }
 }
 
-class RemindersList extends StatelessWidget {
-  final List<Reminder> reminders;
+class RemindersList extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => ReminderListState();
 
-  RemindersList({Key key, @required this.reminders}) : super(key: key);
+
+}
+
+class ReminderListState extends State<RemindersList>{
+  var reminders;
+  num notificationID;
+  DateTime newSelectedSchedule;
+
+  getNotifications(){
+    setState(() {
+      reminders = Provider.of<NotificationService>(context, listen: false)
+          .getPendingNotifications();
+    });
+  }
+
+  editNotification(){
+    setState(() {
+      Provider.of<NotificationService>(context, listen: false)
+          .editNotification(notificationID, newSelectedSchedule);
+    });
+  }
+
+  edit_reminder_menu(context, notif_id) {
+    ReminderUI reminderUI = ReminderUI(dateTime: DateTime.now());
+    Alert(
+        context: context,
+        title: '',
+        content: reminderUI,
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              newSelectedSchedule = reminderUI.getInputDateTime();
+              notificationID = notif_id;
+              editNotification();
+              //Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RemindersPageView()),
+              );
+              //reload reminders_page_view
+            },
+            child: Text(
+              "Update",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20),
+            ),
+          )
+        ]).show();
+  }
 
   @override
   Widget build(BuildContext context,) {
@@ -67,7 +122,7 @@ class RemindersList extends StatelessWidget {
   }
 
   Widget createReminderCard(context, reminder) {
-    final keyValue = '${reminder.toString()}-reminder';
+    final keyValue = '${reminder.id}-reminder';
     return Container(
       key: Key(keyValue),
       margin: EdgeInsets.only(bottom: 8),
@@ -111,6 +166,7 @@ class RemindersList extends StatelessWidget {
 
   Widget createReminderCards(context, reminders) {
     final List<Widget> reminderCards = <Widget>[];
+    getNotifications();
     for (int i = 0; i < reminders.length; i++) {
       reminderCards.add(this.createReminderCard(context, reminders[i]));
     }
@@ -118,9 +174,11 @@ class RemindersList extends StatelessWidget {
   }
 
   Widget createReminder(context, reminder) {
-    final keyValue = '${reminder.toString()}-reminder';
+    final keyValue = '${reminder.id}-reminder';
     return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              edit_reminder_menu(context, reminder.id);
+            },
     child:
       Container(
           key: Key(keyValue),
@@ -143,7 +201,7 @@ class RemindersList extends StatelessWidget {
                     Align(
                         alignment: Alignment.centerLeft,
                         child:
-                        Text(reminder.serviceName,
+                        Text(reminder.title,
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Theme.of(context).accentColor,
@@ -156,7 +214,7 @@ class RemindersList extends StatelessWidget {
                     Align(
                         alignment: Alignment.centerLeft,
                         child:
-                        Text(reminder.date,
+                        Text(reminder.body,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Theme.of(context).accentColor,
