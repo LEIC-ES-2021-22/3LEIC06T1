@@ -9,14 +9,28 @@ import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 import 'package:uni/model/entities/service.dart';
 
+class CustomNotification{
+  num id;
+  String title;
+  String body;
+
+  CustomNotification(num id, String title, String body){
+    this.id = id;
+    this.title = title;
+    this.body = body;
+  }
+}
+
 class NotificationService {
   FlutterLocalNotificationsPlugin reminderNotifications;
   num idCounter;
+  List<CustomNotification> notifications;
 
 
   NotificationService(){
     reminderNotifications = FlutterLocalNotificationsPlugin();
     _setupNotifications();
+    notifications = [];
     idCounter = 0;
   }
 
@@ -94,28 +108,37 @@ class NotificationService {
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
     );
 
+    notifications.add(CustomNotification(
+        idCounter,
+        service.name,
+        schedule.toString()
+      )
+    );
+
     idCounter += 1;
   }
 
   Future deleteNotification(num notificationID) async{
+    for (int x = 0; x < notifications.length; x++){
+      if (notifications[x].id == notificationID){
+        notifications.removeAt(x);
+      }
+    }
     await reminderNotifications.cancel(notificationID);
   }
 
   Future deleteAllNotification() async{
+    notifications = [];
     await reminderNotifications.cancelAll();
   }
 
-  Future getPendingNotifications() async{
-    return reminderNotifications
-        .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()
-        .getActiveNotifications();
-
+  List<CustomNotification> getPendingNotifications(){
+    return notifications;
   }
 
   Future editNotification(num notificationID, DateTime notifSchedule) async{
-    final List<PendingNotificationRequest> pendingNotificationRequests =
-    await reminderNotifications.pendingNotificationRequests();
+    final List<CustomNotification> pendingNotificationRequests =
+        getPendingNotifications();
 
     for(var notif in pendingNotificationRequests){
       if (notif.id == notificationID){

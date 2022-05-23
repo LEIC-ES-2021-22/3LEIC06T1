@@ -41,13 +41,13 @@ class RemindersList extends StatefulWidget {
 }
 
 class ReminderListState extends State<RemindersList>{
-  var reminders;
+  List<CustomNotification> pendingReminders;
   num notificationID;
   DateTime newSelectedSchedule;
 
   getNotifications(){
     setState(() {
-      reminders = Provider.of<NotificationService>(context, listen: false)
+      pendingReminders = Provider.of<NotificationService>(context, listen: false)
           .getPendingNotifications();
     });
   }
@@ -97,7 +97,7 @@ class ReminderListState extends State<RemindersList>{
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  this.createRemindersListCard(context,reminders),
+                  this.createRemindersListCard(context),
                 ],
               )
           ),
@@ -105,8 +105,8 @@ class ReminderListState extends State<RemindersList>{
     );
   }
 
-  Widget createRemindersListCard(context, reminders) {
-    final keyValue = '${reminders.toString()}-reminders';
+  Widget createRemindersListCard(context) {
+    final keyValue = 'reminders';
     return Container(
       key: Key(keyValue),
       margin: EdgeInsets.only(bottom: 8),
@@ -114,30 +114,15 @@ class ReminderListState extends State<RemindersList>{
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          this.createRemindersList(context, reminders),
+          this.createRemindersList(context),
         ],
       ),
 
     );
   }
 
-  Widget createReminderCard(context, reminder) {
-    final keyValue = '${reminder.id}-reminder';
-    return Container(
-      key: Key(keyValue),
-      margin: EdgeInsets.only(bottom: 8),
-      padding: EdgeInsets.all(8),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          this.createReminder(context, reminder),
-        ],
-      ),
-
-    );
-  }
-  Widget createRemindersList(context, reminders) {
-    final keyValue = '${reminders.toString()}-desc';
+  Widget createRemindersList(context) {
+    final keyValue = 'desc';
     return Container(
         key: Key(keyValue),
         margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
@@ -157,21 +142,38 @@ class ReminderListState extends State<RemindersList>{
                 )
                 ),
                 const SizedBox(height:20),
-                createReminderCards(context,reminders)
+                createReminderCards(context)
               ]
           ),
         )
     );
   }
 
-  Widget createReminderCards(context, reminders) {
+  Widget createReminderCards(context) {
     final List<Widget> reminderCards = <Widget>[];
     getNotifications();
-    for (int i = 0; i < reminders.length; i++) {
-      reminderCards.add(this.createReminderCard(context, reminders[i]));
+    for (int i = 0; i < pendingReminders.length; i++) {
+      reminderCards.add(this.createReminderCard(context, pendingReminders[i]));
     }
     return Column(children: reminderCards);
   }
+
+  Widget createReminderCard(context, reminder) {
+    final keyValue = '${reminder.id}-reminder';
+    return Container(
+      key: Key(keyValue),
+      margin: EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.all(8),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          this.createReminder(context, reminder),
+        ],
+      ),
+
+    );
+  }
+
 
   Widget createReminder(context, reminder) {
     final keyValue = '${reminder.id}-reminder';
