@@ -9,8 +9,6 @@ import '../view/Pages/service_description_view.dart';
 
 class NotificationService {
   FlutterLocalNotificationsPlugin reminderNotifications;
-  NotificationDetails generalNotificationDetails;
-
   num idCounter;
 
 
@@ -44,17 +42,6 @@ class NotificationService {
         onSelectNotification: _onSelectNotification
     );
 
-    final androidDetails = AndroidNotificationDetails(
-      'Reminder ID',
-      'Reminders',
-      channelDescription: "Reminders' notification",
-      importance: Importance.max,
-      priority: Priority.max,
-      enableVibration: true,
-    );
-    final iOSDetails = IOSNotificationDetails();
-    generalNotificationDetails = NotificationDetails(android: androidDetails,
-        iOS: iOSDetails);
   }
 
   Future _onSelectNotification(String payload) async{
@@ -76,12 +63,27 @@ class NotificationService {
 
   Future addNotification(DateTime notifSchedule, Service service) async{
 
+    final androidDetails = AndroidNotificationDetails(
+      'Reminder ID',
+      'Reminders',
+      channelDescription: "Reminders' notification",
+      importance: Importance.max,
+      priority: Priority.max,
+      enableVibration: true,
+    );
+    final iOSDetails = IOSNotificationDetails();
+    NotificationDetails(android: androidDetails,
+        iOS: iOSDetails);
+
     await reminderNotifications.zonedSchedule(
          idCounter,
         'Nome-Serviço',
         'dia e hora',
         tz.TZDateTime.from(notifSchedule, tz.local),
-        generalNotificationDetails,
+        NotificationDetails(
+            android: androidDetails,
+            iOS: iOSDetails
+        ),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
     );
@@ -107,14 +109,33 @@ class NotificationService {
         final body = notif.body;
 
         deleteNotification(notificationID);
+        //create new notif with the same text
+        final androidDetails = AndroidNotificationDetails(
+          'Reminder ID',
+          'Reminders',
+          channelDescription: "Reminders' notification",
+          importance: Importance.max,
+          priority: Priority.max,
+          enableVibration: true,
+        );
+        final iOSDetails = IOSNotificationDetails();
+        NotificationDetails(android: androidDetails,
+            iOS: iOSDetails);
+
         await reminderNotifications.zonedSchedule(
-            idCounter,
-            title,
-            body,
-            notifSchedule,
-            generalNotificationDetails
+          idCounter,
+          title,
+          body,
+          notifSchedule,
+          NotificationDetails(
+              android: androidDetails,
+              iOS: iOSDetails
+          ),
+          androidAllowWhileIdle: true,
+          uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
         );
         idCounter += 1;
+
         return;
       }
     }

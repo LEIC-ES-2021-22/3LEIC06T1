@@ -20,6 +20,41 @@ class ServiceDescPageView extends StatefulWidget {
   State<StatefulWidget> createState() => ServiceDescPageViewState();
 }
 
+/*
+class ServiceDescPageView extends StatefulWidget {
+
+  final Service myService;
+  ServiceDescPageView({
+    this.myService
+  });
+  @override
+  State<StatefulWidget> createState() => ServiceDescPageViewState(service: this.myService);
+}
+
+class ServiceDescPageViewState extends SecondaryPageViewState {
+  final double borderRadius = 10.0;
+  final Service service;
+
+  ServiceDescPageViewState({Key key, @required this.service});
+
+  @override
+  Widget getBody(BuildContext context) {
+    return StoreConnector<AppState, List<dynamic>>(
+      converter: (store) {
+      },
+      builder: (context, services) {
+        return ServiceDesc( service: this.service);
+      },
+    );
+  }
+}
+
+class ServiceDesc extends StatelessWidget {
+  final Service service;
+
+  ServiceDesc({Key key, @required this.service});
+ */
+
 class ServiceDescPageViewState extends State<ServiceDescPageView>{
 
   createNotification(){
