@@ -18,7 +18,6 @@ class ServiceDescriptionPage extends StatefulWidget {
   State<StatefulWidget> createState() => ServiceDescPageViewState(service: this.myService);
 }
 
-
 class ServiceDescPageViewState extends SecondaryPageViewState {
   final double borderRadius = 10.0;
   final Service service;
@@ -83,7 +82,7 @@ class ServiceDescState extends State<ServiceDesc>{
                     FloatingActionButton(
                       heroTag: "makeReminderButton",
                       backgroundColor: Colors.white,
-                      onPressed: () => make_reminder_menu(context),
+                      onPressed: () => make_reminder_menu(context,null),
                       child: Icon(
                         Icons.calendar_month,
                         size: 30,
