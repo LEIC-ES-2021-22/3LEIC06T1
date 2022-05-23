@@ -1,16 +1,41 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 import 'package:flutter/widgets.dart';
 
 
-
-class ClockDemo extends StatelessWidget {
-  TimeOfDay selectedTime;
+class ClockDemo extends StatefulWidget {
+  ClockDemoState clockState;
 
   ClockDemo(DateTime initDateTime){
+    clockState = ClockDemoState(initDateTime);
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    return clockState;
+  }
+
+  getInputTime(){
+    return clockState.getSelectedTimeOfDay();
+  }
+}
+
+class ClockDemoState extends State<ClockDemo> {
+  TimeOfDay selectedTime;
+  String textHolder;
+
+  ClockDemoState(DateTime initDateTime){
+    textHolder = initDateTime.toString().substring(11,16);
     selectedTime = TimeOfDay.fromDateTime(initDateTime);
   }
 
+  changeText(newText) {
+    setState(() {
+      print(textHolder);
+      textHolder = newText;
+    });
+  }
 
   _selectTime(BuildContext context) async {
     final TimeOfDay timeOfDay = await showTimePicker(
@@ -21,7 +46,7 @@ class ClockDemo extends StatelessWidget {
     if(timeOfDay != null && timeOfDay != selectedTime)
     {
       selectedTime = timeOfDay;
-      print(timeOfDay);
+      changeText(selectedTime.toString().substring(10,15));
     }
   }
 
@@ -38,7 +63,7 @@ class ClockDemo extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               FlutterAnalogClock(
-                dateTime: DateTime.parse('2022-05-30 11:00'),
+                dateTime: DateTime.parse('2022-05-30 ' + '$textHolder' + ':00z'),
                 dialPlateColor: Colors.white,
                 hourHandColor: Colors.black,
                 minuteHandColor: Colors.black,
@@ -61,7 +86,7 @@ class ClockDemo extends StatelessWidget {
                 decoration: const BoxDecoration(),
               ),
               const SizedBox(height: 20),
-              Text(selectedTime.toString(),
+              Text('$textHolder',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Theme

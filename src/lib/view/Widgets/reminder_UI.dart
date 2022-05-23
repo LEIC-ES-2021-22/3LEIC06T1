@@ -36,7 +36,7 @@ class ReminderUIState extends State<ReminderUI>{
   }
 
   getInputDateTime(){
-    TimeOfDay clockDateTime = clock.getSelectedTimeOfDay();
+    TimeOfDay clockDateTime = clock.getInputTime();
     return DateTime(
       calendarDateTime.year,
       calendarDateTime.month,
