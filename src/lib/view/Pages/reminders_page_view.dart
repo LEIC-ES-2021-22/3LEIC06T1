@@ -89,7 +89,7 @@ class ReminderListState extends State<RemindersList>{
   }
 
   @override
-  Widget build(BuildContext context,) {
+  Widget build(BuildContext context) {
     return ListView(
         children: <Widget>[
           Container(
@@ -216,7 +216,7 @@ class ReminderListState extends State<RemindersList>{
                     Align(
                         alignment: Alignment.centerLeft,
                         child:
-                        Text(reminder.body,
+                        Text(reminder.body.substring(0,16),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Theme.of(context).accentColor,

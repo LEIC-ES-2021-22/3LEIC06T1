@@ -99,7 +99,7 @@ class ReminderUIState extends State<ReminderUI>{
                 Align(
                     alignment: Alignment.centerLeft,
                     child:
-                    Text(calendarDateTime.toString(),
+                    Text(calendarDateTime.toString().split(' ')[0],
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: Theme
