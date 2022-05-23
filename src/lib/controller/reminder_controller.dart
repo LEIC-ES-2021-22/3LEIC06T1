@@ -1,3 +1,5 @@
+import 'dart:core';
+import 'dart:core';
 import 'dart:developer';
 import 'dart:async';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -5,7 +7,7 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
-import '../view/Pages/service_description_view.dart';
+import 'package:uni/model/entities/service.dart';
 
 class NotificationService {
   FlutterLocalNotificationsPlugin reminderNotifications;
@@ -61,6 +63,8 @@ class NotificationService {
   }
 
 
+
+
   Future addNotification(DateTime notifSchedule, Service service) async{
 
     final androidDetails = AndroidNotificationDetails(
@@ -75,11 +79,13 @@ class NotificationService {
     NotificationDetails(android: androidDetails,
         iOS: iOSDetails);
 
+    DateTime schedule = tz.TZDateTime.from(notifSchedule, tz.local);
+
     await reminderNotifications.zonedSchedule(
          idCounter,
-        'Nome-Serviço',
-        'dia e hora',
-        tz.TZDateTime.from(notifSchedule, tz.local),
+        service.name,
+        schedule.toString(),
+        schedule,
         NotificationDetails(
             android: androidDetails,
             iOS: iOSDetails
@@ -97,6 +103,13 @@ class NotificationService {
 
   Future deleteAllNotification() async{
     await reminderNotifications.cancelAll();
+  }
+
+  Future getPendingNotifications() async{
+    final List<PendingNotificationRequest> pendingNotificationRequests =
+    await reminderNotifications.pendingNotificationRequests();
+
+    return pendingNotificationRequests;
   }
 
   Future editNotification(num notificationID, DateTime notifSchedule) async{

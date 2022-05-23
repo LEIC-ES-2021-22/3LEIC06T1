@@ -6,7 +6,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:uni/model/entities/service.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 import 'package:uni/view/Widgets/row_container.dart';
-
 import 'package:uni/view/Widgets/make_reminder_menu.dart';
 
 class ServiceDescriptionPage extends StatefulWidget {
@@ -52,7 +51,7 @@ class ServiceDescState extends State<ServiceDesc>{
   createNotification(){
     setState(() {
       Provider.of<NotificationService>(context, listen: false)
-          .addNotification(DateTime.now().add(Duration(seconds: 5)), null);
+          .addNotification(DateTime.now().add(Duration(seconds: 5)), widget.myService);
     });
   }
 
@@ -73,7 +72,6 @@ class ServiceDescState extends State<ServiceDesc>{
                       heroTag: "locationButton",
                       backgroundColor: Colors.white,
                       onPressed: () {
-                        createNotification();
 
                       },
                       child: Icon(
@@ -101,66 +99,6 @@ class ServiceDescState extends State<ServiceDesc>{
     );
   }
 }
-
-
-
-
-/*
-class ServiceDescPageView extends StatefulWidget {
-
-  final Service myService;
-  ServiceDescPageView({
-    this.myService
-  });
-  @override
-  State<StatefulWidget> createState() => ServiceDescPageViewState(service: this.myService);
-}
-
-class ServiceDescPageViewState extends SecondaryPageViewState {
-  final double borderRadius = 10.0;
-  final Service service;
-
-  ServiceDescPageViewState({Key key, @required this.service});
-
-  @override
-  Widget getBody(BuildContext context) {
-    return StoreConnector<AppState, List<dynamic>>(
-      converter: (store) {
-      },
-      builder: (context, services) {
-        return ServiceDesc( service: this.service);
-      },
-    );
-  }
-}
-
-class ServiceDesc extends StatelessWidget {
-  final Service service;
-
-  ServiceDesc({Key key, @required this.service});
- */
-
-
-
-/*
-class ServiceDescPageViewState extends SecondaryPageViewState {
-  final double borderRadius = 10.0;
-  final Service service;
-
-  ServiceDescPageViewState({Key key, @required this.service});
-
-  @override
-  Widget getBody(BuildContext context) {
-    return StoreConnector<AppState, List<dynamic>>(
-      converter: (store) {
-      },
-      builder: (context, services) {
-        return ServiceDesc( service: this.service);
-      },
-    );
-  }
-}
-*/
 
 
 Widget createServiceDescCard(context, service) {
