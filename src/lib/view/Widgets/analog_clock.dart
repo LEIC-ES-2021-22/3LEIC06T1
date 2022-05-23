@@ -14,6 +14,7 @@ _selectTime(BuildContext context) async {
   if(timeOfDay != null && timeOfDay != selectedTime)
   {
     selectedTime = timeOfDay;
+    print(timeOfDay);
   }
 }
 

@@ -110,6 +110,7 @@ class RemindersList extends StatelessWidget {
         )
     );
   }
+
   Widget createReminderCards(context, reminders) {
     final List<Widget> reminderCards = <Widget>[];
     for (int i = 0; i < reminders.length; i++) {
@@ -117,6 +118,7 @@ class RemindersList extends StatelessWidget {
     }
     return Column(children: reminderCards);
   }
+
   Widget createReminder(context, reminder) {
     final keyValue = '${reminder.toString()}-reminder';
     return GestureDetector(

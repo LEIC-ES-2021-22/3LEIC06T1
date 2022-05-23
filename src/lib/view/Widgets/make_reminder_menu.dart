@@ -94,7 +94,6 @@ make_reminder_menu(context,reminder) {
           ),*/
         ],
       ),
-
       buttons: [
           DialogButton(
             onPressed: () => Navigator.pop(context),
