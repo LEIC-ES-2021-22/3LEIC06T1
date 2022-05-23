@@ -88,7 +88,7 @@ class ServiceList extends StatelessWidget {
         onTap: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ServiceDescPageView(myService:service)),
+            MaterialPageRoute(builder: (context) => ServiceDescriptionPage(myService:service)),
           );
       },
       child: Container(

@@ -9,27 +9,16 @@ import 'package:uni/view/Widgets/row_container.dart';
 
 import 'package:uni/view/Widgets/make_reminder_menu.dart';
 
-class ServiceDescPageView extends StatefulWidget {
+class ServiceDescriptionPage extends StatefulWidget {
   final Service myService;
-  final double borderRadius = 10.0;
 
-  ServiceDescPageView({
-    this.myService
-  });
-  @override
-  State<StatefulWidget> createState() => ServiceDescPageViewState();
-}
-
-/*
-class ServiceDescPageView extends StatefulWidget {
-
-  final Service myService;
-  ServiceDescPageView({
+  ServiceDescriptionPage({
     this.myService
   });
   @override
   State<StatefulWidget> createState() => ServiceDescPageViewState(service: this.myService);
 }
+
 
 class ServiceDescPageViewState extends SecondaryPageViewState {
   final double borderRadius = 10.0;
@@ -43,20 +32,23 @@ class ServiceDescPageViewState extends SecondaryPageViewState {
       converter: (store) {
       },
       builder: (context, services) {
-        return ServiceDesc( service: this.service);
+        return ServiceDesc( myService: this.service);
       },
     );
   }
 }
 
-class ServiceDesc extends StatelessWidget {
-  final Service service;
+class ServiceDesc extends StatefulWidget {
+  final Service myService;
+  final double borderRadius = 10.0;
 
-  ServiceDesc({Key key, @required this.service});
- */
+  ServiceDesc({Key key, @required this.myService});
 
-class ServiceDescPageViewState extends State<ServiceDescPageView>{
+  State<StatefulWidget> createState() => ServiceDescState();
 
+}
+
+class ServiceDescState extends State<ServiceDesc>{
   createNotification(){
     setState(() {
       Provider.of<NotificationService>(context, listen: false)
@@ -109,6 +101,47 @@ class ServiceDescPageViewState extends State<ServiceDescPageView>{
     );
   }
 }
+
+
+
+
+/*
+class ServiceDescPageView extends StatefulWidget {
+
+  final Service myService;
+  ServiceDescPageView({
+    this.myService
+  });
+  @override
+  State<StatefulWidget> createState() => ServiceDescPageViewState(service: this.myService);
+}
+
+class ServiceDescPageViewState extends SecondaryPageViewState {
+  final double borderRadius = 10.0;
+  final Service service;
+
+  ServiceDescPageViewState({Key key, @required this.service});
+
+  @override
+  Widget getBody(BuildContext context) {
+    return StoreConnector<AppState, List<dynamic>>(
+      converter: (store) {
+      },
+      builder: (context, services) {
+        return ServiceDesc( service: this.service);
+      },
+    );
+  }
+}
+
+class ServiceDesc extends StatelessWidget {
+  final Service service;
+
+  ServiceDesc({Key key, @required this.service});
+ */
+
+
+
 /*
 class ServiceDescPageViewState extends SecondaryPageViewState {
   final double borderRadius = 10.0;
