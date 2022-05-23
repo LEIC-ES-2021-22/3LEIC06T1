@@ -21,6 +21,7 @@ class ClockDemo extends StatelessWidget {
     if(timeOfDay != null && timeOfDay != selectedTime)
     {
       selectedTime = timeOfDay;
+      print(timeOfDay);
     }
   }
 
@@ -32,9 +33,12 @@ class ClockDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () => _selectTime(context),
-          child:
-            FlutterAnalogClock(
-                dateTime: DateTime(selectedTime.hour, selectedTime.minute),
+        child:
+        Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              FlutterAnalogClock(
+                dateTime: DateTime.parse('2022-05-30 11:00'),
                 dialPlateColor: Colors.white,
                 hourHandColor: Colors.black,
                 minuteHandColor: Colors.black,
@@ -55,7 +59,21 @@ class ClockDemo extends StatelessWidget {
                 width: 150.0,
                 height: 150.0,
                 decoration: const BoxDecoration(),
-        ),
+              ),
+              const SizedBox(height: 20),
+              Text(selectedTime.toString(),
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Theme
+                        .of(context)
+                        .accentColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  )
+              ),
+              const SizedBox(height: 20),
+            ]
+        )
     );
   }
 }

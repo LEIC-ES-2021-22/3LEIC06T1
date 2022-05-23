@@ -6,10 +6,10 @@ import 'analog_clock.dart';
 
 class ReminderUI extends StatefulWidget{
   final DateTime dateTime;
-  DateTime inputDateTime;
+  ReminderUIState state;
 
   getInputDateTime(){
-    return inputDateTime;
+    return state.getInputDateTime();
   }
 
   ReminderUI({
@@ -17,19 +17,33 @@ class ReminderUI extends StatefulWidget{
   });
 
   @override
-  State<StatefulWidget> createState() => ReminderUIState(this.dateTime);
+  State<StatefulWidget> createState(){
+    state = ReminderUIState(this.dateTime);
+    return state;
+  }
 
 }
 
 class ReminderUIState extends State<ReminderUI>{
   DateTime initDateTime;
   DateTime calendarDateTime;
-  DateTime clockDateTime;
+  ClockDemo clock;
 
   ReminderUIState(DateTime initDateTime){
     this.initDateTime = initDateTime;
     calendarDateTime = initDateTime;
-    clockDateTime = initDateTime;
+    clock = ClockDemo(initDateTime);
+  }
+
+  getInputDateTime(){
+    TimeOfDay clockDateTime = clock.getSelectedTimeOfDay();
+    return DateTime(
+      calendarDateTime.year,
+      calendarDateTime.month,
+      calendarDateTime.day,
+      clockDateTime.hour,
+      clockDateTime.minute
+    );
   }
 
   @override
@@ -85,7 +99,7 @@ class ReminderUIState extends State<ReminderUI>{
                 Align(
                     alignment: Alignment.centerLeft,
                     child:
-                    Text(reminder.date.split(' ')[0],
+                    Text(calendarDateTime.toString(),
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: Theme
@@ -100,19 +114,7 @@ class ReminderUIState extends State<ReminderUI>{
             )
         ),
         const SizedBox(height: 30),
-        ClockDemo(initDateTime),
-        const SizedBox(height: 20),
-        Text(reminder.date.split(' ')[1],
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              color: Theme
-                  .of(context)
-                  .accentColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            )
-        ),
-        const SizedBox(height: 20),
+        clock,
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:uni/controller/reminder_controller.dart';
 import 'package:uni/model/app_state.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:uni/model/entities/service.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 import 'package:uni/view/Widgets/row_container.dart';
-import 'package:uni/view/Widgets/make_reminder_menu.dart';
+import '../Widgets/reminder_UI.dart';
 
 class ServiceDescriptionPage extends StatefulWidget {
   final Service myService;
@@ -47,11 +48,36 @@ class ServiceDesc extends StatefulWidget {
 }
 
 class ServiceDescState extends State<ServiceDesc>{
+  DateTime selectedSchedule;
+
   createNotification(){
     setState(() {
       Provider.of<NotificationService>(context, listen: false)
-          .addNotification(DateTime.now().add(Duration(seconds: 5)), widget.myService);
+          .addNotification(selectedSchedule, widget.myService);
     });
+  }
+
+  make_reminder_menu(context) {
+    ReminderUI reminderUI = ReminderUI(dateTime: DateTime.now());
+    Alert(
+        context: context,
+        title: '',
+        content: reminderUI,
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              selectedSchedule = reminderUI.getInputDateTime();
+              createNotification();
+              Navigator.pop(context);
+            },
+            child: Text(
+              "Create",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20),
+            ),
+          )
+        ]).show();
   }
 
   @override
@@ -82,7 +108,7 @@ class ServiceDescState extends State<ServiceDesc>{
                     FloatingActionButton(
                       heroTag: "makeReminderButton",
                       backgroundColor: Colors.white,
-                      onPressed: () => make_reminder_menu(context,null),
+                      onPressed: () => make_reminder_menu(context),
                       child: Icon(
                         Icons.calendar_month,
                         size: 30,
