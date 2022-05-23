@@ -3,27 +3,30 @@ import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 import 'package:flutter/widgets.dart';
 
 
-TimeOfDay selectedTime = TimeOfDay.now();
-
-_selectTime(BuildContext context) async {
-  final TimeOfDay timeOfDay = await showTimePicker(
-    context: context,
-    initialTime: selectedTime,
-    initialEntryMode: TimePickerEntryMode.dial,
-  );
-  if(timeOfDay != null && timeOfDay != selectedTime)
-  {
-    selectedTime = timeOfDay;
-    print(timeOfDay);
-  }
-}
 
 class ClockDemo extends StatelessWidget {
-  final String myHour;
+  TimeOfDay selectedTime;
 
-  ClockDemo({
-    this.myHour
-  });
+  ClockDemo(DateTime initDateTime){
+    selectedTime = TimeOfDay.fromDateTime(initDateTime);
+  }
+
+
+  _selectTime(BuildContext context) async {
+    final TimeOfDay timeOfDay = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+      initialEntryMode: TimePickerEntryMode.dial,
+    );
+    if(timeOfDay != null && timeOfDay != selectedTime)
+    {
+      selectedTime = timeOfDay;
+    }
+  }
+
+  getSelectedTimeOfDay(){
+    return selectedTime;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class ClockDemo extends StatelessWidget {
         onTap: () => _selectTime(context),
           child:
             FlutterAnalogClock(
-                dateTime: DateTime.parse(myHour),
+                dateTime: DateTime(selectedTime.hour, selectedTime.minute),
                 dialPlateColor: Colors.white,
                 hourHandColor: Colors.black,
                 minuteHandColor: Colors.black,
