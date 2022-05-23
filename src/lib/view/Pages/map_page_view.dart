@@ -1,11 +1,18 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uni/view/Pages/general_page_view.dart';
+import 'package:uni/view/Pages/service_description_view.dart';
 import 'package:uni/view/Widgets/terms_and_conditions.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:uni/model/entities/service.dart';
+
+import '../../utils/serviceMock.dart';
+import '../Widgets/row_container.dart';
+import '../Widgets/schedule_row.dart';
 
 class MapPageView extends StatefulWidget {
   @override
@@ -40,30 +47,32 @@ class MapSampleState extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
   Set<Marker> _markers = {};
   BitmapDescriptor currentPosIcon;
+  Map<String, LatLng> services = HashMap();
+  Map<String, String> servicesInfo = HashMap();
+  List<Service> serviceList;
 
-  void setIcon() async {
-    currentPosIcon = await BitmapDescriptor.fromAssetImage(ImageConfiguration(), 'assets/images/myPos.png');
-    //currentPosIcon = BitmapDescriptor.defaultMarker;
+
+  void addService(String name, LatLng location, String beginTime, String endTime) {
+    _markers.add(Marker(
+      markerId: MarkerId(name),
+      infoWindow: InfoWindow(title: name, snippet: beginTime + "  " + endTime),
+      position: location,
+    ));
   }
 
   @override
   void initState() {
-    // TODO: implement initState
+    services.addAll({"SDInf": LatLng(41.17746504425501, -8.594736036826815), "SERAC": LatLng(41.178026372500376, -8.597829247433044), "SICC": LatLng(41.17781754970367, -8.595047200753985), "SRH": LatLng(41.17813855720173, -8.597663632785746), "SEF": LatLng(41.17823949752264, -8.597561708852806), "STMA": LatLng(41.17772584745011, -8.596755364495348) });
+    serviceList = ServiceMock.getServices();
     super.initState();
-    setIcon();
   }
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
     setState(() {
-      _markers.add(
-        Marker(
-          markerId: MarkerId("_kGooglePlex"),
-          infoWindow: InfoWindow(title: "Estás aqui"),
-          icon: currentPosIcon,
-          position: LatLng(41.17817607238003, -8.596451894896566),
-        ),
-      );
+      for (int i = 0; i < services.length; i++) {
+        addService(serviceList[i].name, services[serviceList[i].name], serviceList[i].startTime, serviceList[i].endTime);
+      }
     });
   }
 
@@ -89,12 +98,25 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        mapType: MapType.normal,
-        markers: _markers,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: _onMapCreated,
-      ),
+      body: Column(
+        children:[
+          Row(
+            children: [
+              Expanded(child: TextFormField()),
+              IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+            ],
+          ),
+          Expanded(
+            child: GoogleMap(
+              mapType: MapType.normal,
+              markers: _markers,
+              initialCameraPosition: _kGooglePlex,
+              onMapCreated: _onMapCreated,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
+            ),
+          )
+        ]),
       /*floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
         label: Text('To the lake!'),
