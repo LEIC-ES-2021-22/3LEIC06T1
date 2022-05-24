@@ -44,7 +44,7 @@ dependencies:
   sentry_flutter: ^5.0.0
   email_validator: ^1.0.6
 
-
+  rflutter_alert: ^1.0.3
   flutter_gherkin: ^2.0.0
   glob: ^2.0.2
   test: ^1.19.5
@@ -52,8 +52,20 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
+  flutter_local_notifications: ^9.5.3+1
+  flutter_local_notifications_platform_interface: ^5.0.0
+  flutter_native_timezone: ^2.0.0
+  provider:
+
   material_design_icons_flutter: ^5.0.6595
   google_maps_flutter: ^2.1.4
+  flutter_analog_clock: ^0.1.1
+  flutter_datetime_picker: ^1.5.1
+
+  json_annotation: ^4.0.1
+
+
   geolocator: ^8.2.1
   location: ^4.4.0
 
@@ -66,6 +78,8 @@ dev_dependencies:
   mockito: 
   flutter_launcher_icons: ^0.9.0
   flutter_native_splash: ^1.0.3
+  build_runner: ^2.0.4
+  json_serializable: ^6.2.0
 
 flutter_icons:
   android: true
