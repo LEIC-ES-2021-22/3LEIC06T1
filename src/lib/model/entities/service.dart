@@ -60,7 +60,7 @@ class Service{
       String openMin = this.startTime.substring(3,5);
       TimeOfDay openTime = TimeOfDay(hour: int.parse(openHour), minute: int.parse(openMin));
       String closeHour = this.startTime.substring(6,8);
-      String closeMin = this.startTime.substring(9,10);
+      String closeMin = this.startTime.substring(9,11);
       TimeOfDay closeTime = TimeOfDay(hour: int.parse(closeHour), minute: int.parse(closeMin));
       int openMTime = openTime.hour * 60 + openTime.minute;
       int closeMTime = closeTime.hour * 60 + closeTime.minute;
@@ -73,7 +73,7 @@ class Service{
       String openMin2 = this.endTime.substring(3,5);
       TimeOfDay openTime2 = TimeOfDay(hour: int.parse(openHour2), minute: int.parse(openMin2));
       String closeHour2 = this.endTime.substring(6,8);
-      String closeMin2 = this.endTime.substring(9,10);
+      String closeMin2 = this.endTime.substring(9,11);
       TimeOfDay closeTime2 = TimeOfDay(hour: int.parse(closeHour2), minute: int.parse(closeMin2));
       int openMTime2 = openTime2.hour * 60 + openTime2.minute;
       int closeMTime2 = closeTime2.hour * 60 + closeTime2.minute;
