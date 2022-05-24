@@ -3,6 +3,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:uni/model/entities/notification_data.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 import '../../controller/reminder_controller.dart';
 import '../../model/app_state.dart';
@@ -41,7 +42,7 @@ class RemindersList extends StatefulWidget {
 }
 
 class ReminderListState extends State<RemindersList>{
-  List<CustomNotification> pendingReminders;
+  List<NotificationData> pendingReminders;
   num notificationID;
   DateTime newSelectedSchedule;
 

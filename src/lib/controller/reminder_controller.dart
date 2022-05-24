@@ -1,36 +1,73 @@
+import 'dart:convert';
 import 'dart:core';
 import 'dart:core';
 import 'dart:developer';
 import 'dart:async';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-
+import 'dart:io';
 import 'package:uni/model/entities/service.dart';
 
-class CustomNotification{
-  num id;
-  String title;
-  String body;
+import '../model/entities/notification_data.dart';
 
-  CustomNotification(num id, String title, String body){
-    this.id = id;
-    this.title = title;
-    this.body = body;
-  }
-}
 
 class NotificationService {
   FlutterLocalNotificationsPlugin reminderNotifications;
   num idCounter;
-  List<CustomNotification> notifications;
+  List<NotificationData> notifications;
+  static const String jsonFile = 'notifications.json';
+
+  toJson(){
+    var map = {};
+    notifications.forEach((notif) =>
+    map[notif.id.toString()] = notif.toJson());
+    return map;
+  }
+
+  Future<void> fromJson() async {
+    final path = await _localPath;
+    final String response = await rootBundle.loadString('$path/$jsonFile');
+    final data = await json.decode(response);
+    data.forEach((key, value){
+      notifications.add(NotificationData.fromJson(value));
+    });
+  }
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/$jsonFile');
+  }
+
+  void _writeJson() async {
+    final _filePath = await _localFile;
+
+    Map<String, dynamic> _newJson = toJson();
+    print('1.(_writeJson) _newJson: $_newJson');
+
+
+    String jsonString = jsonEncode(_newJson);
+
+    await _filePath.writeAsString(jsonString);
+  }
+
+
 
 
   NotificationService(){
     reminderNotifications = FlutterLocalNotificationsPlugin();
     _setupNotifications();
     notifications = [];
+    fromJson();
     idCounter = 0;
   }
 
@@ -96,7 +133,7 @@ class NotificationService {
     DateTime schedule = tz.TZDateTime.from(notifSchedule, tz.local);
 
     await reminderNotifications.zonedSchedule(
-         idCounter,
+        idCounter,
         service.name,
         schedule.toString(),
         schedule,
@@ -108,14 +145,16 @@ class NotificationService {
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
     );
 
-    notifications.add(CustomNotification(
-        idCounter,
-        service.name,
-        schedule.toString()
+    notifications.add(NotificationData(
+        id: idCounter,
+        title: service.name,
+        body: schedule.toString()
       )
     );
 
     idCounter += 1;
+
+    _writeJson();
   }
 
   Future deleteNotification(num notificationID) async{
@@ -125,19 +164,22 @@ class NotificationService {
       }
     }
     await reminderNotifications.cancel(notificationID);
+
+    _writeJson();
   }
 
   Future deleteAllNotification() async{
     notifications = [];
     await reminderNotifications.cancelAll();
+    _writeJson();
   }
 
-  List<CustomNotification> getPendingNotifications(){
+  List<NotificationData> getPendingNotifications(){
     return notifications;
   }
 
   Future editNotification(num notificationID, DateTime notifSchedule) async{
-    final List<CustomNotification> pendingNotificationRequests =
+    final List<NotificationData> pendingNotificationRequests =
         getPendingNotifications();
 
     for(var notif in pendingNotificationRequests){
@@ -173,6 +215,7 @@ class NotificationService {
         );
         idCounter += 1;
 
+        _writeJson();
         return;
       }
     }
