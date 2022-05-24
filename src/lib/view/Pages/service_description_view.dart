@@ -115,7 +115,7 @@ class ServiceDescState extends State<ServiceDesc>{
                         color: Colors.black,
                       ),
                     ),
-                  ],
+                   ],
                   ),
                 ],
               )
@@ -124,7 +124,6 @@ class ServiceDescState extends State<ServiceDesc>{
     );
   }
 }
-
 
 Widget createServiceDescCard(context, service) {
   final keyValue = '${service.toString()}-desccard';
@@ -195,7 +194,6 @@ Widget createServiceDesc(context, service) {
                 )
               ),
               const SizedBox(height:20),
-
             ]
         ),
       )

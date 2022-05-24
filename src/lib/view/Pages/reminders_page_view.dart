@@ -66,8 +66,10 @@ class ReminderListState extends State<RemindersList>{
     });
   }
 
-  edit_reminder_menu(context, notif_id) {
-    ReminderUI reminderUI = ReminderUI(dateTime: DateTime.now());
+  edit_reminder_menu(context, reminder) {
+    print(DateTime.parse(reminder.body));
+    print(DateTime.now());
+    ReminderUI reminderUI = ReminderUI(dateTime: DateTime.parse(reminder.body));
     Alert(
         context: context,
         title: '',
@@ -76,14 +78,10 @@ class ReminderListState extends State<RemindersList>{
           DialogButton(
             onPressed: () {
               newSelectedSchedule = reminderUI.getInputDateTime();
-              notificationID = notif_id;
+              notificationID = reminder.id;
               editNotification();
-              //Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RemindersPageView()),
-              );
-              //reload reminders_page_view
+              Navigator.pop(context);
+              setState(() {});
             },
             child: Text(
               "Update",
@@ -186,7 +184,7 @@ class ReminderListState extends State<RemindersList>{
     final keyValue = '${reminder.id}-reminder';
     return GestureDetector(
             onTap: () {
-              edit_reminder_menu(context, reminder.id);
+              edit_reminder_menu(context, reminder);
             },
     child:
       Container(

@@ -159,11 +159,13 @@ class NotificationService {
         NotificationDetails(android: androidDetails,
             iOS: iOSDetails);
 
+        DateTime schedule = tz.TZDateTime.from(notifSchedule, tz.local);
+
         await reminderNotifications.zonedSchedule(
           idCounter,
           title,
-          body,
-          notifSchedule,
+          schedule.toString(),
+          schedule,
           NotificationDetails(
               android: androidDetails,
               iOS: iOSDetails
@@ -171,6 +173,7 @@ class NotificationService {
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
         );
+        notifications.add(CustomNotification(idCounter, title, schedule.toString()));
         idCounter += 1;
 
         return;
