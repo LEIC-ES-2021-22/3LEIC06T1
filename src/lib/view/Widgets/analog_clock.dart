@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 import 'package:flutter/widgets.dart';
 
-
 class ClockDemo extends StatefulWidget {
   ClockDemoState clockState;
 
@@ -37,6 +36,7 @@ class ClockDemoState extends State<ClockDemo> {
       clockTime = DateTime.parse('2022-05-30 ' + '$textHolder' + ':00z');
     });
   }
+
 
   _selectTime(BuildContext context) async {
     final TimeOfDay timeOfDay = await showTimePicker(
