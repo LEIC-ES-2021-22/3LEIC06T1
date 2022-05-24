@@ -179,7 +179,7 @@ class ReminderListState extends State<RemindersList>{
 
 
   Widget createReminder(context, reminder) {
-    final keyValue = '${reminder.id}-reminder';
+    final keyValue = '${reminder.title}' + '${reminder.body}';
     return GestureDetector(
             onTap: () {
               edit_reminder_menu(context, reminder);
