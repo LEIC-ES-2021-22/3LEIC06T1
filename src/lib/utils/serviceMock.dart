@@ -44,7 +44,7 @@ class ServiceMock{
         "id": 3,
         "name": "SICC",
         "desc": "Os Serviços de Imagem, Comunicação e Cooperação têm por missão construir relações de confiança e uma reputação institucional excelente, e valorizar o conhecimento e cultivar o talento da comunidade intercultural e global da FEUP.",
-        "startTime": "9:30-13:00",
+        "startTime": "09:30-13:00",
         "closeTime": "14:00-17:00"
       },
       {
@@ -58,7 +58,7 @@ class ServiceMock{
         "id": 5,
         "name": "SEF",
         "desc": "Os SEF têm como Missão assegurar a atividade económica e financeira da FEUP, de acordo com as instruções tutelares e as diretivas dos Órgãos de Gestão.",
-        "startTime": "9:00",
+        "startTime": "09:00",
         "closeTime": "16:00"
       },
       {
