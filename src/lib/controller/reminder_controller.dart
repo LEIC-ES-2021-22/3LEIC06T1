@@ -98,6 +98,7 @@ class NotificationService {
   }
 
   Future _onSelectNotification(String payload) async{
+    deleteNotification(int.parse(payload));
     if(payload != null && payload.isNotEmpty){
       /*Navigator.push(
         context,
@@ -141,6 +142,7 @@ class NotificationService {
             android: androidDetails,
             iOS: iOSDetails
         ),
+        payload: idCounter.toString(),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
     );
@@ -215,7 +217,7 @@ class NotificationService {
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
         );
-        notifications.add(CustomNotification(idCounter, title, schedule.toString()));
+        notifications.add(NotificationData(id: idCounter, title: title, body: schedule.toString()));
         idCounter += 1;
 
         _writeJson();
