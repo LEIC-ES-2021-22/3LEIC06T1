@@ -110,7 +110,7 @@ class ReminderListState extends State<RemindersList>{
   }
 
   Widget createRemindersListCard(context) {
-    final keyValue = 'reminders';
+    final keyValue = 'Reminders';
     return Container(
       key: Key(keyValue),
       margin: EdgeInsets.only(bottom: 8),
