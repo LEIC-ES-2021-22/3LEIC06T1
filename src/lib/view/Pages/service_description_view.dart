@@ -63,9 +63,11 @@ class ServiceDesc extends StatelessWidget {
                   ),
                 ],
                 ),*/
+
                 this.createServiceTitleCard(context, service),
                 this.createServiceScheduleCard(context, service),
                 this.createServiceDescCard(context, service),
+                this.createServiceIsOpen(context, service),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     FloatingActionButton(
                       backgroundColor: Colors.white,
@@ -240,6 +242,35 @@ class ServiceDesc extends StatelessWidget {
         )
     );
   }
+
+
+Widget createServiceIsOpen(context, service) {
+  final keyValue = '${service.toString()}-isOpen';
+  return Container(
+      key: Key(keyValue),
+      height: 80,
+      margin: EdgeInsets.fromLTRB(80, 4, 80, 0),
+      child: RowContainer(
+        color: Theme.of(context).backgroundColor,
+        child:
+        Center(child:
+        Text((() {
+          if(service.isOpen(TimeOfDay.now(),DateTime.now())){
+            return "Aberto";}
+
+          return "Fechado";
+        })(),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Theme.of(context).accentColor,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            )
+        )
+        ),
+      )
+  );
+}
 }
 
 
