@@ -92,7 +92,7 @@ class ServiceDescState extends State<ServiceDesc>{
                   createServiceTitleCard(context, widget.myService),
                   createServiceScheduleCard(context, widget.myService),
                   createServiceDescCard(context, widget.myService),
-                  this.createServiceIsOpen(context, service),
+                  createServiceIsOpen(context, widget.myService),
 
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     FloatingActionButton(
@@ -269,9 +269,9 @@ Widget createServiceTitle(context, service) {
                 )
               ),
         )
-    );
+    ),
+  );
   }
-
 
 Widget createServiceIsOpen(context, service) {
   final keyValue = '${service.toString()}-isOpen';
@@ -300,7 +300,8 @@ Widget createServiceIsOpen(context, service) {
       )
   );
 }
-}
+
+
 
 
 
