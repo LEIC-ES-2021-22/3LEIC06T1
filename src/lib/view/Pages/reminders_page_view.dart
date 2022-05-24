@@ -67,8 +67,6 @@ class ReminderListState extends State<RemindersList>{
   }
 
   edit_reminder_menu(context, reminder) {
-    print(DateTime.parse(reminder.body));
-    print(DateTime.now());
     ReminderUI reminderUI = ReminderUI(dateTime: DateTime.parse(reminder.body));
     Alert(
         context: context,
