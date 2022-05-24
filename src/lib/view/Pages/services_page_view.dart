@@ -86,15 +86,16 @@ class ServiceList extends StatelessWidget {
 
   Widget createServiceContext(context, service) {
     final keyValue = '${service.name}-service';
+    print('${service.name}-service');
     return GestureDetector(
         onTap: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ServiceDescPageView(myService:service)),
+            MaterialPageRoute(builder: (context) => ServiceDescriptionPage(myService:service)),
           );
       },
       child: Container(
-        key: Key(keyValue),
+        key: Key(keyValue),//
         margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
         child: RowContainer(
             color: Theme.of(context).backgroundColor,

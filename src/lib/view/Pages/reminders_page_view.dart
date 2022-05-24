@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:uni/model/entities/notification_data.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
+import '../../controller/reminder_controller.dart';
 import '../../model/app_state.dart';
 import '../../model/entities/reminder.dart';
+import '../Widgets/reminder_UI.dart';
 import '../Widgets/row_container.dart';
 import 'package:uni/utils/reminderMock.dart';
+
+import 'edit_reminders_view.dart';
 
 
 class RemindersPageView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => RemindersPageViewState();
 }
-
 
 class RemindersPageViewState extends SecondaryPageViewState {
   final double borderRadius = 10.0;
@@ -21,19 +28,72 @@ class RemindersPageViewState extends SecondaryPageViewState {
       converter: (store) {
       },
       builder: (context, reminders) {
-        return RemindersList(reminders: ReminderMock.getReminders());
+        return RemindersList();
       },
     );
   }
 }
 
-class RemindersList extends StatelessWidget {
-  final List<Reminder> reminders;
+class RemindersList extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => ReminderListState();
 
-  RemindersList({Key key, @required this.reminders}) : super(key: key);
+
+}
+
+class ReminderListState extends State<RemindersList>{
+  List<NotificationData> pendingReminders;
+  num notificationID;
+  DateTime newSelectedSchedule;
+
+  getNotifications(){
+    setState(() {
+      pendingReminders = Provider.of<NotificationService>(context, listen: false)
+          .getPendingNotifications();
+    });
+  }
+
+  deleteNotification(){
+    setState(() {
+      Provider.of<NotificationService>(context, listen: false)
+          .deleteNotification(notificationID);
+    });
+  }
+
+  editNotification(){
+    setState(() {
+      Provider.of<NotificationService>(context, listen: false)
+          .editNotification(notificationID, newSelectedSchedule);
+    });
+  }
+
+  edit_reminder_menu(context, reminder) {
+    ReminderUI reminderUI = ReminderUI(dateTime: DateTime.parse(reminder.body));
+    Alert(
+        context: context,
+        title: '',
+        content: reminderUI,
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              newSelectedSchedule = reminderUI.getInputDateTime();
+              notificationID = reminder.id;
+              editNotification();
+              Navigator.pop(context);
+              setState(() {});
+            },
+            child: Text(
+              "Update",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20),
+            ),
+          )
+        ]).show();
+  }
 
   @override
-  Widget build(BuildContext context,) {
+  Widget build(BuildContext context) {
     return ListView(
         children: <Widget>[
           Container(
@@ -41,7 +101,7 @@ class RemindersList extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  this.createRemindersListCard(context,reminders),
+                  this.createRemindersListCard(context),
                 ],
               )
           ),
@@ -49,8 +109,8 @@ class RemindersList extends StatelessWidget {
     );
   }
 
-  Widget createRemindersListCard(context, reminders) {
-    final keyValue = '${reminders.toString()}-reminders';
+  Widget createRemindersListCard(context) {
+    final keyValue = 'Reminders';
     return Container(
       key: Key(keyValue),
       margin: EdgeInsets.only(bottom: 8),
@@ -58,30 +118,15 @@ class RemindersList extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          this.createRemindersList(context, reminders),
+          this.createRemindersList(context),
         ],
       ),
 
     );
   }
 
-  Widget createReminderCard(context, reminder) {
-    final keyValue = '${reminder.toString()}-reminder';
-    return Container(
-      key: Key(keyValue),
-      margin: EdgeInsets.only(bottom: 8),
-      padding: EdgeInsets.all(8),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          this.createReminder(context, reminder),
-        ],
-      ),
-
-    );
-  }
-  Widget createRemindersList(context, reminders) {
-    final keyValue = '${reminders.toString()}-desc';
+  Widget createRemindersList(context) {
+    final keyValue = 'desc';
     return Container(
         key: Key(keyValue),
         margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
@@ -101,80 +146,158 @@ class RemindersList extends StatelessWidget {
                 )
                 ),
                 const SizedBox(height:20),
-                createReminderCards(context,reminders)
+                createReminderCards(context)
               ]
           ),
         )
     );
   }
-  Widget createReminderCards(context, reminders) {
+
+  Widget createReminderCards(context) {
     final List<Widget> reminderCards = <Widget>[];
-    for (int i = 0; i < reminders.length; i++) {
-      reminderCards.add(this.createReminderCard(context, reminders[i]));
+    getNotifications();
+    for (int i = 0; i < pendingReminders.length; i++) {
+      reminderCards.add(this.createReminderCard(context, pendingReminders[i]));
     }
     return Column(children: reminderCards);
   }
-  Widget createReminder(context, reminder) {
-    final keyValue = '${reminder.toString()}-reminder';
+
+  Widget createReminderCard(context, reminder) {
+    final keyValue = '${reminder.id}-reminder';
     return Container(
-        key: Key(keyValue),
-        margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
-        padding: EdgeInsets.all(13),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(
-              width: 1,
-              color: Colors.grey,
-            )
-        ),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                  Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        const SizedBox(height:10),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child:
-                          Text(reminder.serviceName,
+      key: Key(keyValue),
+      margin: EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.all(8),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          this.createReminder(context, reminder),
+        ],
+      ),
+
+    );
+  }
+
+
+  Widget createReminder(context, reminder) {
+    final keyValue = '${reminder.title}' + '${reminder.body}';
+    return GestureDetector(
+            onTap: () {
+              edit_reminder_menu(context, reminder);
+            },
+    child:
+      Container(
+          key: Key(keyValue),
+          margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
+          padding: EdgeInsets.all(13),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                width: 1,
+                color: Colors.grey,
+              )
+          ),
+          child:
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const SizedBox(height:10),
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child:
+                        Text(reminder.title,
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Theme.of(context).accentColor,
                               fontWeight: FontWeight.bold,
                               fontSize:20,
                             )
-                          )
-                        ),
-                        const SizedBox(height:10),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child:
-                        Text(reminder.date,
+                        )
+                    ),
+                    const SizedBox(height:10),
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child:
+                        Text(reminder.body.substring(0,16),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Theme.of(context).accentColor,
                               fontWeight: FontWeight.bold,
                               fontSize:12,
                             )
-                          )
-                        ),
-                        const SizedBox(height:10),
-                      ]
-                  ),
-                  FloatingActionButton.small(
-                    backgroundColor: Colors.white,
-                    onPressed: () {
-                    },
-                    child: Icon(
-                      Icons.delete  ,
-                      size: 25,
-                      color: Colors.black,
+                        )
                     ),
+                    const SizedBox(height:10),
+                  ]
+              ),
+              FloatingActionButton.small(
+                backgroundColor: Colors.white,
+                onPressed: () {
+                  Alert(
+                      context: context,
+                      title: '',
+                      content:
+                      Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                          Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("Are you sure you want to delete this remainder?",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Theme
+                                    .of(context)
+                                    .accentColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              )
+                          )
+                      ),
+                      const SizedBox(height:15),
+                      ]
+                      ),
+                      buttons: [
+                        DialogButton(
+                          onPressed: () {
+                            notificationID = reminder.id;
+                            deleteNotification();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => RemindersPageView()),
+                            );
+                          },
+                          child: Text(
+                            "Delete",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18),
+                          ),
+                        ),
+                        DialogButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18),
+                          ),
+                        )
+                      ]).show();
+                },
+                child: Icon(
+                  Icons.delete  ,
+                  size: 25,
+                  color: Colors.black,
                 ),
+              ),
 
-              ],
-            )
+            ],
+          )
+      )
     );
   }
 }
