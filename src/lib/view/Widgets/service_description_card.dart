@@ -11,7 +11,6 @@ Widget createServiceDescCard(context, service) {
     child: Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-
         createServiceDesc(context, service),
       ],
     ),
@@ -164,7 +163,6 @@ Widget createServiceIsOpen(context, service) {
           if (service.isOpen(TimeOfDay.now(), DateTime.now())) {
             return "Opened";
           }
-
           return "Closed";
         })(),
             textAlign: TextAlign.center,
@@ -175,7 +173,7 @@ Widget createServiceIsOpen(context, service) {
               fontSize: 30,
               fontWeight: FontWeight.bold,
             )
-        )
+          )
         ),
       )
   );

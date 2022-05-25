@@ -20,6 +20,8 @@ class ClockDemo extends StatefulWidget {
   }
 }
 
+typedef EntryModeChangeCallback = void Function(TimePickerEntryMode);
+
 class ClockDemoState extends State<ClockDemo> {
   TimeOfDay selectedTime;
   String textHolder;
@@ -37,18 +39,19 @@ class ClockDemoState extends State<ClockDemo> {
     });
   }
 
-
   _selectTime(BuildContext context) async {
     final TimeOfDay timeOfDay = await showTimePicker(
       context: context,
       initialTime: selectedTime,
       initialEntryMode: TimePickerEntryMode.dial,
+      onEntryModeChanged: null,
     );
     if(timeOfDay != null && timeOfDay != selectedTime)
     {
       selectedTime = timeOfDay;
       changeText(selectedTime.toString().substring(10,15));
     }
+    createAnalogClock(clockTime);
   }
 
   getSelectedTimeOfDay(){
@@ -63,29 +66,7 @@ class ClockDemoState extends State<ClockDemo> {
         Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              FlutterAnalogClock(
-                dateTime: clockTime,
-                dialPlateColor: Colors.white,
-                hourHandColor: Colors.black,
-                minuteHandColor: Colors.black,
-                secondHandColor: Colors.black,
-                numberColor: Colors.black,
-                borderColor: Colors.black,
-                tickColor: Colors.black,
-                centerPointColor: Colors.black,
-                showBorder: true,
-                showTicks: true,
-                showMinuteHand: true,
-                showSecondHand: false,
-                showNumber: true,
-                borderWidth: 8.0,
-                hourNumberScale: .10,
-                hourNumbers: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'],
-                isLive: true,
-                width: 150.0,
-                height: 150.0,
-                decoration: const BoxDecoration(),
-              ),
+              createAnalogClock(clockTime),
               const SizedBox(height: 20),
               Text('$textHolder',
                   textAlign: TextAlign.left,
@@ -102,4 +83,31 @@ class ClockDemoState extends State<ClockDemo> {
         )
     );
   }
+
+  Widget createAnalogClock(clockTime) {
+    return FlutterAnalogClock(
+      dateTime: clockTime,
+      dialPlateColor: Colors.white,
+      hourHandColor: Colors.black,
+      minuteHandColor: Colors.black,
+      secondHandColor: Colors.black,
+      numberColor: Colors.black,
+      borderColor: Colors.black,
+      tickColor: Colors.black,
+      centerPointColor: Colors.black,
+      showBorder: true,
+      showTicks: true,
+      showMinuteHand: true,
+      showSecondHand: false,
+      showNumber: true,
+      borderWidth: 8.0,
+      hourNumberScale: .10,
+      hourNumbers: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'],
+      isLive: true,
+      width: 150.0,
+      height: 150.0,
+      decoration: const BoxDecoration(),
+    );
+  }
+
 }
