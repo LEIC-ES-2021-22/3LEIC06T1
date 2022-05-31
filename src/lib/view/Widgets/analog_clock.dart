@@ -36,6 +36,8 @@ class ClockDemoState extends State<ClockDemo> {
     setState(() {
       textHolder = newText;
       clockTime = DateTime.parse('2022-05-30 ' + '$textHolder' + ':00z');
+      createAnalogClock(clockTime);
+
     });
   }
 
@@ -51,7 +53,6 @@ class ClockDemoState extends State<ClockDemo> {
       selectedTime = timeOfDay;
       changeText(selectedTime.toString().substring(10,15));
     }
-    createAnalogClock(clockTime);
   }
 
   getSelectedTimeOfDay(){
@@ -61,7 +62,11 @@ class ClockDemoState extends State<ClockDemo> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () => _selectTime(context),
+        onTap: () {
+          setState(() {
+            _selectTime(context);
+          });
+        },
         child:
         Column(
             mainAxisSize: MainAxisSize.max,
@@ -93,7 +98,7 @@ class ClockDemoState extends State<ClockDemo> {
       secondHandColor: Colors.black,
       numberColor: Colors.black,
       borderColor: Colors.black,
-      tickColor: Colors.black,
+      tickColor: Theme.of(context).accentColor,
       centerPointColor: Colors.black,
       showBorder: true,
       showTicks: true,

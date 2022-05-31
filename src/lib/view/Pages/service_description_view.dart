@@ -1,3 +1,4 @@
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:uni/controller/reminder_controller.dart';
@@ -58,14 +59,76 @@ class ServiceDescState extends State<ServiceDesc>{
     });
   }
 
+  Event createExamEvent() {
+
+    DateTime date;
+    final List<String> partsBegin = selectedSchedule.toString().split(' ');
+    final List<String> time = partsBegin[1].split(':');
+    final int myHours = int.parse(time[0]);
+    final int myMinutes = int.parse(time[1]);
+    return Event(
+      title: 'OLA',
+      location: 'boasssss',
+      startDate: DateTime(
+          int.parse(partsBegin[0].split('-')[0]),
+          int.parse(partsBegin[0].split('-')[1]),
+          int.parse(partsBegin[0].split('-')[2]),
+          myHours,
+          myMinutes
+      ),
+      endDate: DateTime(
+          int.parse(partsBegin[0].split('-')[0]),
+          int.parse(partsBegin[0].split('-')[1]),
+          int.parse(partsBegin[0].split('-')[2]),
+          myHours,
+          myMinutes
+      ),
+
+    );
+  }
+
   make_reminder_menu(context) {
     ReminderUI reminderUI = ReminderUI(dateTime: DateTime.now());
     Alert(
         context: context,
         title: '',
-        content: reminderUI,
+        content:
+          Column(
+            children: <Widget>[
+              reminderUI,
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                FloatingActionButton(
+                      backgroundColor: Colors.white,
+                      onPressed: (){
+                        selectedSchedule = reminderUI.getInputDateTime();
+                        Add2Calendar.addEvent2Cal(this.createExamEvent());
+                        },
+                      child: Icon(
+                      Icons.upload_rounded ,
+                      size: 30,
+                      color: Colors.black,
+                      ),
+                  ),
+                  FloatingActionButton(
+                    backgroundColor: Colors.white,
+                    onPressed: () {
+                      selectedSchedule = reminderUI.getInputDateTime();
+                      createNotification();
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                    Icons.library_add_check_outlined ,
+                    size: 30,
+                    color: Colors.black,
+                    ),
+                ),
+              ]
+            ),
+            ],
+          ),
         buttons: [
-          DialogButton(
+          /*DialogButton(
             onPressed: () {
               selectedSchedule = reminderUI.getInputDateTime();
               createNotification();
@@ -77,7 +140,7 @@ class ServiceDescState extends State<ServiceDesc>{
                   color: Colors.white,
                   fontSize: 20),
             ),
-          )
+          )*/
         ]).show();
   }
 
