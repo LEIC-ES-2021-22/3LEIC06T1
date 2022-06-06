@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-//part 'notification_data.g.dart';
 
 @JsonSerializable()
 class NotificationData{
@@ -22,15 +21,20 @@ class NotificationData{
 
   static NotificationData parseString(String notif_string){
     final List<String> data = notif_string.split(' ');
-    return NotificationData(
-        id: int.parse(data[0]),
-        title: data[1],
-        body: data[2] + ' ' + data[3]
-    );
+    num id = int.parse(data[0]);
+    String title = data[1];
+    String body = data[2] + ' ' + data[3];
+
+    if (DateTime.parse(body).compareTo(DateTime.now()) > 0 ){
+      return NotificationData(
+          id: id,
+          title: title,
+          body: body
+      );
+    }
+    else{
+      return null;
+    }
   }
-
-  //factory NotificationData.fromJson(Map<String, dynamic> json) => _$NotificationDataFromJson(json);
-
-  //Map<String, dynamic> toJson() => _$NotificationDataToJson(this);
 
 }

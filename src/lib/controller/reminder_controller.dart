@@ -81,9 +81,12 @@ class NotificationService {
     //_save_localstorage();
     if (stored_notifications != null){
       for (var i = 0; i < stored_notifications.length ; i++){
-        notifications.add(
-            NotificationData.parseString(stored_notifications[i])
-        );
+
+        NotificationData saved_notif = NotificationData.parseString(stored_notifications[i]);
+
+        if (saved_notif != null){
+          notifications.add(saved_notif);
+        }
       }
     }
 
