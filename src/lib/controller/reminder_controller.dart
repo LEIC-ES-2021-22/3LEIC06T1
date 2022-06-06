@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:core';
-import 'dart:core';
 import 'dart:developer';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
@@ -16,10 +17,14 @@ import 'package:uni/model/entities/service.dart';
 import '../model/entities/notification_data.dart';
 
 
+
 class NotificationService {
   FlutterLocalNotificationsPlugin reminderNotifications;
   num idCounter;
   List<NotificationData> notifications;
+  static const String local_storare_key = 'notifications';
+
+  /*
   static const String jsonFile = 'notifications.json';
 
   toJson(){
@@ -59,16 +64,49 @@ class NotificationService {
 
     await _filePath.writeAsString(jsonString);
   }
-
-
+*/
 
 
   NotificationService(){
     reminderNotifications = FlutterLocalNotificationsPlugin();
     _setupNotifications();
     notifications = [];
-    fromJson();
+    _load_locastorage_notifications();
     idCounter = 0;
+  }
+
+  Future<void> _load_locastorage_notifications() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> stored_notifications = prefs.getStringList(local_storare_key);
+    //_save_localstorage();
+    if (stored_notifications != null){
+      for (var i = 0; i < stored_notifications.length ; i++){
+        notifications.add(
+            NotificationData.parseString(stored_notifications[i])
+        );
+      }
+    }
+
+    num stored_idCounter = prefs.getInt('notification_counter');
+    if (stored_idCounter != null){
+      idCounter = stored_idCounter;
+    }
+
+  }
+
+  Future<void> _save_localstorage() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> notifications_tostring = [];
+    //print("before the for in _save_localstorage");
+    for(var i = 0; i < notifications.length; i++){
+      notifications_tostring.add(
+          notifications[i].toString()
+      );
+    }
+    //print("after the for in _save_localstorage");
+
+    prefs.setStringList(local_storare_key, notifications_tostring);
+    prefs.setInt('notification_counter', idCounter);
   }
 
   _setupNotifications() async{
@@ -156,7 +194,10 @@ class NotificationService {
 
     idCounter += 1;
 
-    _writeJson();
+    _save_localstorage();
+
+
+    //_writeJson();
   }
 
   Future deleteNotification(num notificationID) async{
@@ -167,13 +208,17 @@ class NotificationService {
     }
     await reminderNotifications.cancel(notificationID);
 
-    _writeJson();
+    _save_localstorage();
+
+    //_writeJson();
   }
 
   Future deleteAllNotification() async{
     notifications = [];
     await reminderNotifications.cancelAll();
-    _writeJson();
+
+    _save_localstorage();
+    //_writeJson();
   }
 
   List<NotificationData> getPendingNotifications(){
@@ -187,8 +232,6 @@ class NotificationService {
     for(var notif in pendingNotificationRequests){
       if (notif.id == notificationID){
         final title = notif.title;
-        final body = notif.body;
-
         deleteNotification(notificationID);
         //create new notif with the same text
         final androidDetails = AndroidNotificationDetails(
@@ -220,7 +263,9 @@ class NotificationService {
         notifications.add(NotificationData(id: idCounter, title: title, body: schedule.toString()));
         idCounter += 1;
 
-        _writeJson();
+        _save_localstorage();
+
+        //_writeJson();
         return;
       }
     }

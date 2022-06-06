@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-
+/*
 part of 'notification_data.dart';
 
 // **************************************************************************
@@ -19,3 +19,4 @@ Map<String, dynamic> _$NotificationDataToJson(NotificationData instance) =>
       'title': instance.title,
       'body': instance.body,
     };
+*/
