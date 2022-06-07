@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:uni/model/entities/service.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
-import 'package:uni/view/Widgets/row_container.dart';
+import 'package:timezone/timezone.dart' as tz;
 import '../Widgets/reminder_UI.dart';
 import '../Widgets/service_description_card.dart';
 
@@ -45,30 +45,33 @@ class ServiceDesc extends StatefulWidget {
 
   ServiceDesc({Key key, @required this.myService});
 
-  State<StatefulWidget> createState() => ServiceDescState();
+  State<StatefulWidget> createState() => ServiceDescState(myService);
 
 }
 
 class ServiceDescState extends State<ServiceDesc>{
   DateTime selectedSchedule;
+  final Service service;
+
+  ServiceDescState(this.service);
 
   createNotification(){
     setState(() {
       Provider.of<NotificationService>(context, listen: false)
-          .addNotification(selectedSchedule, widget.myService);
+          .addNotification(selectedSchedule.toLocal(), widget.myService);
+
     });
   }
 
   Event createExamEvent() {
 
-    DateTime date;
     final List<String> partsBegin = selectedSchedule.toString().split(' ');
     final List<String> time = partsBegin[1].split(':');
     final int myHours = int.parse(time[0]);
     final int myMinutes = int.parse(time[1]);
     return Event(
-      title: 'OLA',
-      location: 'boasssss',
+      title: service.name,
+      location: '',
       startDate: DateTime(
           int.parse(partsBegin[0].split('-')[0]),
           int.parse(partsBegin[0].split('-')[1]),
@@ -88,7 +91,7 @@ class ServiceDescState extends State<ServiceDesc>{
   }
 
   make_reminder_menu(context) {
-    ReminderUI reminderUI = ReminderUI(dateTime: DateTime.now());
+    ReminderUI reminderUI = ReminderUI(dateTime: DateTime.now().toLocal());
     Alert(
         context: context,
         title: '',
@@ -101,7 +104,7 @@ class ServiceDescState extends State<ServiceDesc>{
                 FloatingActionButton(
                       backgroundColor: Colors.white,
                       onPressed: (){
-                        selectedSchedule = reminderUI.getInputDateTime();
+                        selectedSchedule = reminderUI.getInputDateTime().toLocal();
                         Add2Calendar.addEvent2Cal(this.createExamEvent());
                         },
                       child: Icon(
@@ -113,7 +116,7 @@ class ServiceDescState extends State<ServiceDesc>{
                   FloatingActionButton(
                     backgroundColor: Colors.white,
                     onPressed: () {
-                      selectedSchedule = reminderUI.getInputDateTime();
+                      selectedSchedule = reminderUI.getInputDateTime().toLocal();
                       createNotification();
                       Navigator.pop(context);
                     },
@@ -128,19 +131,6 @@ class ServiceDescState extends State<ServiceDesc>{
             ],
           ),
         buttons: [
-          /*DialogButton(
-            onPressed: () {
-              selectedSchedule = reminderUI.getInputDateTime();
-              createNotification();
-              Navigator.pop(context);
-            },
-            child: Text(
-              "Create",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20),
-            ),
-          )*/
         ]).show();
   }
 

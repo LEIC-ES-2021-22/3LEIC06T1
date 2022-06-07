@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ClockDemo extends StatefulWidget {
   ClockDemoState clockState;
@@ -37,18 +38,63 @@ class ClockDemoState extends State<ClockDemo> {
       textHolder = newText;
       clockTime = DateTime.parse('2022-05-30 ' + '$textHolder' + ':00z');
       createAnalogClock(clockTime);
-
     });
   }
 
   _selectTime(BuildContext context) async {
+    TimeOfDay nowTime = TimeOfDay.now();
     final TimeOfDay timeOfDay = await showTimePicker(
       context: context,
       initialTime: selectedTime,
       initialEntryMode: TimePickerEntryMode.dial,
       onEntryModeChanged: null,
     );
-    if(timeOfDay != null && timeOfDay != selectedTime)
+
+    double doubleSelected = timeOfDay.hour.toDouble() +
+        (timeOfDay.minute.toDouble() / 60);
+    double doubleNowTime = nowTime.hour.toDouble() +
+        (nowTime.minute.toDouble() / 60);
+    double timeDiff = doubleSelected - doubleNowTime ;
+
+    if(timeDiff < 0){
+      Alert(
+          context: context,
+          title: '',
+          content:
+          Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("The hour you chose is not available!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Theme
+                              .of(context)
+                              .accentColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        )
+                    )
+                ),
+                const SizedBox(height:15),
+              ]
+          ),
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "Back",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18),
+              ),
+            ),
+          ]).show();
+    }
+    else if(timeOfDay != null && timeOfDay != selectedTime)
     {
       selectedTime = timeOfDay;
       changeText(selectedTime.toString().substring(10,15));
