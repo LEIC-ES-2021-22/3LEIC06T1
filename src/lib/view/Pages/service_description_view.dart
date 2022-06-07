@@ -6,6 +6,7 @@ import 'package:uni/model/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:uni/model/entities/service.dart';
+import 'package:uni/view/Pages/map_page_view.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 import 'package:timezone/timezone.dart' as tz;
 import '../Widgets/reminder_UI.dart';
@@ -17,6 +18,7 @@ class ServiceDescriptionPage extends StatefulWidget {
   ServiceDescriptionPage({
     this.myService
   });
+
   @override
   State<StatefulWidget> createState() => ServiceDescPageViewState(service: this.myService);
 }
@@ -155,7 +157,10 @@ class ServiceDescState extends State<ServiceDesc>{
                       heroTag: "locationButton",
                       backgroundColor: Colors.white,
                       onPressed: () {
-
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MapPageView(widget.myService.name)),
+                        );
                       },
                       child: Icon(
                         Icons.location_on,

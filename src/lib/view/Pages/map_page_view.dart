@@ -15,13 +15,24 @@ import '../Widgets/row_container.dart';
 import '../Widgets/schedule_row.dart';
 
 class MapPageView extends StatefulWidget {
+  String service;
+
+  MapPageView(String service) {
+    this.service = service;
+  }
+
+
   @override
-  State<StatefulWidget> createState() => AboutPageViewState();
+  State<StatefulWidget> createState() => AboutPageViewState(this.service);
 }
 
 /// Manages the 'about' section of the app.
 class AboutPageViewState extends GeneralPageViewState {
+  String service;
 
+  AboutPageViewState(String service) {
+    this.service = service;
+  }
 
   @override
   Widget getBody(BuildContext context) {
@@ -32,15 +43,21 @@ class AboutPageViewState extends GeneralPageViewState {
           title: const Center(child: Text("Mapa")),
           backgroundColor: Colors.cyan,
         ),
-        body: MapSample(),
+        body: MapSample(this.service),
       ),
     );
   }
 }
 
 class MapSample extends StatefulWidget {
+  String service;
+
+  MapSample(String service) {
+    this.service = service;
+  }
+
   @override
-  State<MapSample> createState() => MapSampleState();
+  State<MapSample> createState() => MapSampleState(this.service);
 }
 
 class MapSampleState extends State<MapSample> {
@@ -50,6 +67,12 @@ class MapSampleState extends State<MapSample> {
   Map<String, LatLng> services = HashMap();
   Map<String, String> servicesInfo = HashMap();
   List<Service> serviceList;
+
+  String service;
+
+  MapSampleState(String service) {
+    this.service = service;
+  }
 
 
   void addService(String name, LatLng location, String beginTime, String endTime) {
@@ -74,6 +97,7 @@ class MapSampleState extends State<MapSample> {
         addService(serviceList[i].name, services[serviceList[i].name], serviceList[i].startTime, serviceList[i].endTime);
       }
     });
+    _goToMarker();
   }
 
   static final CameraPosition _kGooglePlex = CameraPosition(
@@ -95,6 +119,45 @@ class MapSampleState extends State<MapSample> {
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
+
+  CameraPosition initialPosition() {
+    switch(this.service) {
+      case "SERAC":
+        return CameraPosition(
+          target: LatLng(41.178026372500376, -8.597829247433044),
+          zoom: 17.0,
+          bearing: 90.0,
+        );
+      case "SDInf":
+        return CameraPosition(
+        target: LatLng(41.17746504425501, -8.594736036826815),
+        zoom: 17.0,
+        bearing: 90.0);
+      case "SICC":
+        return CameraPosition(
+        target: LatLng(41.17781754970367, -8.595047200753985),
+        zoom: 17.0,
+        bearing: 90.0);
+      case "SRH":
+        return CameraPosition(
+        target: LatLng(41.17813855720173, -8.597663632785746),
+        zoom: 17.0,
+        bearing: 90.0);
+      case "SEF":
+        return CameraPosition(
+        target: LatLng(41.17823949752264, -8.597561708852806),
+        zoom: 17.0,
+        bearing: 90.0);
+      case "STMA":
+        return CameraPosition(
+        target: LatLng(41.17772584745011, -8.596755364495348),
+        zoom: 17.0,
+        bearing: 90.0);
+      default:
+        return _kGooglePlex;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,7 +173,7 @@ class MapSampleState extends State<MapSample> {
             child: GoogleMap(
               mapType: MapType.normal,
               markers: _markers,
-              initialCameraPosition: _kGooglePlex,
+              initialCameraPosition: initialPosition(),
               onMapCreated: _onMapCreated,
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
@@ -125,8 +188,9 @@ class MapSampleState extends State<MapSample> {
     );
   }
 
-  Future<void> _goToTheLake() async {
+  Future<void> _goToMarker() async {
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+    await Future.delayed(Duration(seconds: 1));
+    controller.showMarkerInfoWindow(MarkerId(this.service));
   }
 }
