@@ -12,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import 'dart:io';
 import 'package:uni/model/entities/service.dart';
 
 import '../model/entities/notification_data.dart';
@@ -98,13 +97,13 @@ class NotificationService {
   }
 
   Future _onSelectNotification(String payload) async{
-    deleteNotification(int.parse(payload));
-    if(payload != null && payload.isNotEmpty){
-      /*Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ServiceDescPageView('/' + payload)),
-      );*/
+    for (int x = 0; x < notifications.length; x++){
+      if (notifications[x].id == int.parse(payload)){
+        String service_name = notifications[x].title;
+      }
     }
+    deleteNotification(int.parse(payload));
+
   }
 
   checkForNotifications() async{
@@ -163,7 +162,6 @@ class NotificationService {
     _save_localstorage();
 
 
-    //_writeJson();
   }
 
   Future deleteNotification(num notificationID) async{
@@ -232,7 +230,6 @@ class NotificationService {
 
         _save_localstorage();
 
-        //_writeJson();
         return;
       }
     }
