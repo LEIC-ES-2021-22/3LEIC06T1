@@ -12,6 +12,8 @@ import 'package:uni/view/Widgets/row_container.dart';
 import 'package:uni/view/Widgets/schedule_row.dart';
 import 'package:uni/view/Widgets/title_card.dart';
 
+import '../Widgets/form_text_field.dart';
+
 
 class ServicePageView extends StatefulWidget {
   @override
@@ -21,37 +23,55 @@ class ServicePageView extends StatefulWidget {
 /// Tracks the state of `ServicesLists`.
 class SericesPageViewState extends SecondaryPageViewState {
   final double borderRadius = 10.0;
+  static final list = ServiceMock.getServices();
+  static final _formKey =  GlobalKey<FormState>();
 
   @override
   Widget getBody(BuildContext context) {
     return StoreConnector<AppState, List<dynamic>>(
-      converter: (store) {
-      },
+      converter: (store) {return List<dynamic>(0);},
       builder: (context, services) {
-        return ServiceList( services: ServiceMock.getServices());
+        return ServiceList( services: list);
       },
     );
   }
 }
 
 /// Manages the 'Service' section in the user's personal area and 'Exams Map'.
-class ServiceList extends StatelessWidget {
+class ServiceList extends StatefulWidget {
   final List<Service> services;
 
 
 
-  ServiceList({Key key, @required this.services}) : super(key: key);
+  ServiceList({ @required this.services}) ;
+
+  @override
+  State<ServiceList> createState() => _ServiceListState();
+}
+
+class _ServiceListState extends State<ServiceList> {
+  static final TextEditingController searchController =
+  TextEditingController();
+
+  static final scrollController = ScrollController();
+
+  static final _formKey1 =  GlobalKey<FormState>();
+
+
+
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        Container(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: this.createServiceColumn(context, services)
-          ),
-        )
-      ],
+    return
+
+
+              ListView(
+                key: _formKey1,
+                shrinkWrap: true,
+                controller: scrollController,
+                children:
+                this.createServiceColumn(context, widget.services),
+
     );
   }
 
@@ -60,16 +80,31 @@ class ServiceList extends StatelessWidget {
     columns.add(ServicePageTitleFilter(
       name: 'Serviços',
     ));
+    columns.add(createSearchBar(context, services));
 
 
     columns.add(this.createServiceCard(context, services));
     return columns;
   }
 
+  Widget createSearchBar(context,services){
+
+
+    return FormTextField(
+
+      searchController,
+      Icons.search,
+      minLines: 1,
+      maxLines: 30,
+      bottomMargin: 30.0,
+
+    );
+  }
+
   Widget createServiceCard(context, services) {
-    final keyValue = services.map((service) => service.toString()).join();
+    final keyValue1 = services.map((service) => service.toString()).join();
     return Container(
-      key: Key(keyValue),
+      key: Key(keyValue1),
       margin: EdgeInsets.only(bottom: 8),
       padding: EdgeInsets.all(8),
       child: this.createServicesCards(context, services),
@@ -81,12 +116,12 @@ class ServiceList extends StatelessWidget {
     for (int i = 0; i < services.length; i++) {
       serviceCards.add(this.createServiceContext(context, services[i]));
     }
-    return Column(children: serviceCards);
+    return ListView(shrinkWrap: true, children: serviceCards,controller: scrollController,);
   }
 
   Widget createServiceContext(context, service) {
     final keyValue = '${service.name}-service';
-    print('${service.name}-service');
+
     return GestureDetector(
         onTap: (){
           Navigator.push(
