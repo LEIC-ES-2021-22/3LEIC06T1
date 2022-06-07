@@ -63,12 +63,12 @@ class ReminderListState extends State<RemindersList>{
   editNotification(){
     setState(() {
       Provider.of<NotificationService>(context, listen: false)
-          .editNotification(notificationID, newSelectedSchedule);
+          .editNotification(notificationID, newSelectedSchedule.toLocal());
     });
   }
 
   edit_reminder_menu(context, reminder) {
-    ReminderUI reminderUI = ReminderUI(dateTime: DateTime.parse(reminder.body));
+    ReminderUI reminderUI = ReminderUI(dateTime: DateTime.parse(reminder.body).toLocal());
     Alert(
         context: context,
         title: '',
@@ -76,7 +76,7 @@ class ReminderListState extends State<RemindersList>{
         buttons: [
           DialogButton(
             onPressed: () {
-              newSelectedSchedule = reminderUI.getInputDateTime();
+              newSelectedSchedule = reminderUI.getInputDateTime().toLocal();
               notificationID = reminder.id;
               editNotification();
               Navigator.pop(context);
