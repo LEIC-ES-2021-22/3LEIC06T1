@@ -24,54 +24,16 @@ class NotificationService {
   List<NotificationData> notifications;
   static const String local_storare_key = 'notifications';
 
-  /*
-  static const String jsonFile = 'notifications.json';
-
-  toJson(){
-    var map = {};
-    notifications.forEach((notif) =>
-    map[notif.id.toString()] = notif.toJson());
-    return map;
-  }
-
-  Future<void> fromJson() async {
-    final path = await _localPath;
-    final String response = await rootBundle.loadString('$path/$jsonFile');
-    final data = await json.decode(response);
-    data.forEach((key, value){
-      notifications.add(NotificationData.fromJson(value));
-    });
-  }
-
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/$jsonFile');
-  }
-
-  void _writeJson() async {
-    final _filePath = await _localFile;
-
-    Map<String, dynamic> _newJson = toJson();
-    print('1.(_writeJson) _newJson: $_newJson');
-
-
-    String jsonString = jsonEncode(_newJson);
-
-    await _filePath.writeAsString(jsonString);
-  }
-*/
-
 
   NotificationService(){
+    Future<void> initializer = _notif_init();
+  }
+
+  Future<void> _notif_init() async{
     reminderNotifications = FlutterLocalNotificationsPlugin();
     _setupNotifications();
     notifications = [];
-    _load_locastorage_notifications();
+    await _load_locastorage_notifications();
     idCounter = 0;
   }
 
@@ -160,6 +122,10 @@ class NotificationService {
 
   Future addNotification(DateTime notifSchedule, Service service) async{
 
+    if (service == null){
+      return;
+    }
+
     final androidDetails = AndroidNotificationDetails(
       'Reminder ID',
       'Reminders',
@@ -225,11 +191,12 @@ class NotificationService {
   }
 
   List<NotificationData> getPendingNotifications(){
-    return notifications;
+    final pendingNotifications = notifications;
+    return pendingNotifications;
   }
 
   Future editNotification(num notificationID, DateTime notifSchedule) async{
-    final List<NotificationData> pendingNotificationRequests =
+    final List<NotificationData> pendingNotificationRequests = await
         getPendingNotifications();
 
     for(var notif in pendingNotificationRequests){

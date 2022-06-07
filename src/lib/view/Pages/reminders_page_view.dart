@@ -24,10 +24,18 @@ class RemindersPageViewState extends SecondaryPageViewState {
   final double borderRadius = 10.0;
   @override
   Widget getBody(BuildContext context) {
+
+    setState(() {
+
+      //ReminderListState.pendingReminders = Provider.of<NotificationService>(context, listen: false)
+        //  .getPendingNotifications();
+    });
+
     return StoreConnector<AppState, List<dynamic>>(
       converter: (store) {
       },
       builder: (context, reminders) {
+
         return RemindersList();
       },
     );
@@ -42,21 +50,33 @@ class RemindersList extends StatefulWidget {
 }
 
 class ReminderListState extends State<RemindersList>{
-  List<NotificationData> pendingReminders;
+  static List<NotificationData> pendingReminders;
   num notificationID;
   DateTime newSelectedSchedule;
 
+
+  addDummyNotif(){
+    setState((){
+      Provider.of<NotificationService>(context, listen: false)
+          .addNotification(DateTime.now(), null);
+    });
+  }
+
   getNotifications(){
+
     setState(() {
       pendingReminders = Provider.of<NotificationService>(context, listen: false)
           .getPendingNotifications();
     });
+
   }
 
   deleteNotification(){
     setState(() {
       Provider.of<NotificationService>(context, listen: false)
           .deleteNotification(notificationID);
+      pendingReminders = Provider.of<NotificationService>(context, listen: false)
+          .getPendingNotifications();
     });
   }
 
@@ -64,6 +84,8 @@ class ReminderListState extends State<RemindersList>{
     setState(() {
       Provider.of<NotificationService>(context, listen: false)
           .editNotification(notificationID, newSelectedSchedule);
+      pendingReminders = Provider.of<NotificationService>(context, listen: false)
+          .getPendingNotifications();
     });
   }
 
