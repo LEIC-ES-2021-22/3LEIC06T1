@@ -240,6 +240,7 @@ class ReminderListState extends State<RemindersList>{
                   ]
               ),
               FloatingActionButton.small(
+                key: Key('key_delete_reminder'),
                 backgroundColor: Colors.white,
                 onPressed: () {
                   Alert(
@@ -267,6 +268,7 @@ class ReminderListState extends State<RemindersList>{
                       ),
                       buttons: [
                         DialogButton(
+                          key: Key('key_confirm_delete_reminder'),
                           onPressed: () {
                             notificationID = reminder.id;
                             deleteNotification();
@@ -283,6 +285,7 @@ class ReminderListState extends State<RemindersList>{
                           ),
                         ),
                         DialogButton(
+                          key: Key('key_cancel_delete_reminder'),
                           onPressed: () {
                             Navigator.pop(context);
                           },

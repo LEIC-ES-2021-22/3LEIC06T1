@@ -1,12 +1,6 @@
 Feature: Open pages
   The pages should appear when we click on the respective menu options
 
-#  Scenario: login and access the main page
-#   When I fill the "usernameinput" field with "up200802821"
-#    And  I fill the "passwordinput" field with "************"
-#    And I tap the "entrar" button
-#    Then I expect the text "Área Pessoal" to be present
-
 # Scenario: login and access the "Horário" page
   Scenario: Access the "Horário" page
     Given I am logged in
@@ -14,7 +8,7 @@ Feature: Open pages
     And I tap the "key_Horário" button
     Then I expect the text "Horário" to be present
 
-  # Scenario: Access "Mapa de Exames" page
+   # Scenario: Access "Mapa de Exames" page
   Scenario: Access the "Mapa de Exames" page
     Given I am logged in
     And I open the drawer
@@ -83,3 +77,20 @@ Feature: Open pages
     And I tap the "key_Serviços" button
     And I tap the "SRH-service" button
     Then I expect the text "10:00-12:00" to be present
+
+  Scenario: Access the "Serviço" page go in the "SRH" service and open create reminder page
+    Given I am logged in
+    And I open the drawer
+    And I tap the "key_Serviços" button
+    And I tap the "SRH-service" button
+    And I tap the "key_create_reminder_window" button
+    Then I expect the text "Reminder" to be present
+
+  Scenario: Access the "Serviço" page go in the "SRH" service and check whether or not the map opens
+    Given I am logged in
+    And I open the drawer
+    And I tap the "key_Serviços" button
+    And I tap the "SRH-service" button
+    And I tap the "key_location" button
+    Then I expect the text "Mapa" to be present
+

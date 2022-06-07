@@ -56,7 +56,7 @@ class ClockDemoState extends State<ClockDemo> {
         (nowTime.minute.toDouble() / 60);
     double timeDiff = doubleSelected - doubleNowTime ;
 
-    if(timeDiff < 0){
+    if(timeDiff <= 0){
       Alert(
           context: context,
           title: '',
