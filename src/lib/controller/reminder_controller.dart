@@ -26,14 +26,10 @@ class NotificationService {
 
 
   NotificationService(){
-    Future<void> initializer = _notif_init();
-  }
-
-  Future<void> _notif_init() async{
     reminderNotifications = FlutterLocalNotificationsPlugin();
     _setupNotifications();
     notifications = [];
-    await _load_locastorage_notifications();
+    _load_locastorage_notifications();
     idCounter = 0;
   }
 
@@ -122,10 +118,6 @@ class NotificationService {
 
   Future addNotification(DateTime notifSchedule, Service service) async{
 
-    if (service == null){
-      return;
-    }
-
     final androidDetails = AndroidNotificationDetails(
       'Reminder ID',
       'Reminders',
@@ -189,6 +181,7 @@ class NotificationService {
     _save_localstorage();
     //_writeJson();
   }
+
 
   List<NotificationData> getPendingNotifications(){
     final pendingNotifications = notifications;

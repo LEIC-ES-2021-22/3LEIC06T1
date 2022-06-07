@@ -24,13 +24,6 @@ class RemindersPageViewState extends SecondaryPageViewState {
   final double borderRadius = 10.0;
   @override
   Widget getBody(BuildContext context) {
-
-    setState(() {
-
-      //ReminderListState.pendingReminders = Provider.of<NotificationService>(context, listen: false)
-        //  .getPendingNotifications();
-    });
-
     return StoreConnector<AppState, List<dynamic>>(
       converter: (store) {
       },
@@ -50,25 +43,16 @@ class RemindersList extends StatefulWidget {
 }
 
 class ReminderListState extends State<RemindersList>{
-  static List<NotificationData> pendingReminders;
+  List<NotificationData> pendingReminders;
   num notificationID;
   DateTime newSelectedSchedule;
 
 
-  addDummyNotif(){
-    setState((){
-      Provider.of<NotificationService>(context, listen: false)
-          .addNotification(DateTime.now(), null);
-    });
-  }
-
   getNotifications(){
-
     setState(() {
       pendingReminders = Provider.of<NotificationService>(context, listen: false)
           .getPendingNotifications();
     });
-
   }
 
   deleteNotification(){
@@ -102,6 +86,7 @@ class ReminderListState extends State<RemindersList>{
               notificationID = reminder.id;
               editNotification();
               Navigator.pop(context);
+              setState(() {});
               setState(() {});
             },
             child: Text(
