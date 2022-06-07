@@ -148,7 +148,7 @@ Widget createServiceTitle(context, service) {
 }
 
 Widget createServiceIsOpen(context, service) {
-  final keyValue = '${service.toString()}-isOpen';
+  final keyValue = 'isOpenOrClosed';
   return Container(
       key: Key(keyValue),
       height: 80,

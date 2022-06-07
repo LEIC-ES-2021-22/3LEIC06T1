@@ -96,10 +96,12 @@ class ServiceDescState extends State<ServiceDesc>{
     ReminderUI reminderUI = ReminderUI(dateTime: DateTime.now().toLocal());
     Alert(
         context: context,
-        title: '',
+        title: 'Reminder',
         content:
+
           Column(
             children: <Widget>[
+              const SizedBox(height:30),
               reminderUI,
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -153,7 +155,7 @@ class ServiceDescState extends State<ServiceDesc>{
                   createServiceIsOpen(context, widget.myService),
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     FloatingActionButton(
-
+                      key: Key("key_location"),
                       heroTag: "locationButton",
                       backgroundColor: Colors.white,
                       onPressed: () {
