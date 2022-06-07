@@ -102,7 +102,8 @@ class ServiceDescState extends State<ServiceDesc>{
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                 FloatingActionButton(
-                      backgroundColor: Colors.white,
+                  key: Key('key_upload_to_calendar'),
+                  backgroundColor: Colors.white,
                       onPressed: (){
                         selectedSchedule = reminderUI.getInputDateTime().toLocal();
                         Add2Calendar.addEvent2Cal(this.createExamEvent());
@@ -114,6 +115,7 @@ class ServiceDescState extends State<ServiceDesc>{
                       ),
                   ),
                   FloatingActionButton(
+                    key: Key('key_create_reminder'),
                     backgroundColor: Colors.white,
                     onPressed: () {
                       selectedSchedule = reminderUI.getInputDateTime().toLocal();
@@ -149,6 +151,7 @@ class ServiceDescState extends State<ServiceDesc>{
                   createServiceIsOpen(context, widget.myService),
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     FloatingActionButton(
+
                       heroTag: "locationButton",
                       backgroundColor: Colors.white,
                       onPressed: () {
@@ -161,6 +164,7 @@ class ServiceDescState extends State<ServiceDesc>{
                       ),
                     ),
                     FloatingActionButton(
+                      key: Key('key_create_reminder_window'),
                       heroTag: "makeReminderButton",
                       backgroundColor: Colors.white,
                       onPressed: () => make_reminder_menu(context),
