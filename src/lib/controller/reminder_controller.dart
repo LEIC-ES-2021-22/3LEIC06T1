@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:developer';
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -83,7 +84,7 @@ class NotificationService {
   }
 
   _initializeNotifications() async{
-    final androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
+    final androidInit = AndroidInitializationSettings('@drawable/ic_notification');
     final iOSInit = IOSInitializationSettings();
     final initSettings = InitializationSettings(
         android: androidInit,
@@ -119,16 +120,20 @@ class NotificationService {
   Future addNotification(DateTime notifSchedule, Service service) async{
 
     final androidDetails = AndroidNotificationDetails(
+
       'Reminder ID',
       'Reminders',
       channelDescription: "Reminders' notification",
       importance: Importance.max,
       priority: Priority.max,
       enableVibration: true,
+        color: Color.fromARGB(255, 0x75, 0x17, 0x1e)
+
     );
     final iOSDetails = IOSNotificationDetails();
     NotificationDetails(android: androidDetails,
-        iOS: iOSDetails);
+        iOS: iOSDetails
+    );
 
     DateTime schedule = tz.TZDateTime.from(notifSchedule, tz.local);
 
@@ -171,7 +176,7 @@ class NotificationService {
 
     _save_localstorage();
 
-    //_writeJson();
+
   }
 
   Future deleteAllNotification() async{
@@ -179,7 +184,6 @@ class NotificationService {
     await reminderNotifications.cancelAll();
 
     _save_localstorage();
-    //_writeJson();
   }
 
 
