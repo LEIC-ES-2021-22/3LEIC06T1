@@ -30,8 +30,8 @@ class ReminderUIState extends State<ReminderUI>{
   ClockDemo clock;
 
   ReminderUIState(DateTime initDateTime){
-    this.initDateTime = initDateTime;
-    calendarDateTime = initDateTime;
+    this.initDateTime = initDateTime.toLocal();
+    calendarDateTime = initDateTime.toLocal();
     clock = ClockDemo(initDateTime);
   }
 

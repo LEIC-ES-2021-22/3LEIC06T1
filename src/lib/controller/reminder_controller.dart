@@ -117,7 +117,6 @@ class NotificationService {
 
 
   Future addNotification(DateTime notifSchedule, Service service) async{
-
     final androidDetails = AndroidNotificationDetails(
 
       'Reminder ID',
@@ -225,7 +224,7 @@ class NotificationService {
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
         );
-        notifications.add(NotificationData(id: idCounter, title: title, body: schedule.toString()));
+        notifications.add(NotificationData(id: idCounter, title: title, body: schedule.toLocal().toString()));
         idCounter += 1;
 
         _save_localstorage();
