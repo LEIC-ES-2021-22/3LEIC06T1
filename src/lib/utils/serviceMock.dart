@@ -23,6 +23,28 @@ class ServiceMock{
     return services;
   }*/
 
+  static List<String> getNames(){
+    List<Service> list1 = getServices();
+    List<String> list = [];
+    for(Service service in list1){
+      list.add(service.name);
+    }
+    return list;
+
+  }
+
+  static Service getService(String service1){
+    List<Service> list1 = getServices();
+    List<String> list = [];
+    for(Service service in list1){
+      if(service.name == service1){
+        return service;
+      }
+    }
+
+
+  }
+
   static List<Service> getServices(){
 
     var data = [
@@ -89,5 +111,7 @@ class ServiceMock{
 
 
   }
+
+
   
 }

@@ -61,12 +61,13 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  Completer<GoogleMapController> _controller = Completer();
+  static final Completer<GoogleMapController> _controller = Completer();
   Set<Marker> _markers = {};
   BitmapDescriptor currentPosIcon;
-  Map<String, LatLng> services = HashMap();
-  Map<String, String> servicesInfo = HashMap();
+  static final Map<String, LatLng> services = HashMap();
+  static final Map<String, String> servicesInfo = HashMap();
   List<Service> serviceList;
+  static final _formKey2 =  GlobalKey<FormState>();
 
   String service;
 
@@ -161,16 +162,14 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Column(
+          key:_formKey2,
+
         children:[
-          Row(
-            children: [
-              Expanded(child: TextFormField()),
-              IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-            ],
-          ),
           Expanded(
             child: GoogleMap(
+
               mapType: MapType.normal,
               markers: _markers,
               initialCameraPosition: initialPosition(),
