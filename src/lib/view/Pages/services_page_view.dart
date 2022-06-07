@@ -1,6 +1,4 @@
-import 'package:uni/controller/exam.dart';
 import 'package:uni/model/app_state.dart';
-import 'package:uni/model/entities/exam.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:uni/model/entities/service.dart';
@@ -10,7 +8,8 @@ import 'package:uni/view/Pages/service_description_view.dart';
 import 'package:uni/view/Widgets/Service_page_filter.dart';
 import 'package:uni/view/Widgets/row_container.dart';
 import 'package:uni/view/Widgets/schedule_row.dart';
-import 'package:uni/view/Widgets/title_card.dart';
+
+import '../Widgets/services_card.dart';
 
 import '../Widgets/form_text_field.dart';
 
@@ -90,15 +89,9 @@ class _ServiceListState extends State<ServiceList> {
   Widget createSearchBar(context,services){
 
 
-    return FormTextField(
-
-      searchController,
-      Icons.search,
-      minLines: 1,
-      maxLines: 30,
-      bottomMargin: 30.0,
-
-    );
+    return IconButton(onPressed: () {
+      showSearch(context: context, delegate: CustomSearchDelegate());
+    }, icon: const Icon(Icons.search));
   }
 
   Widget createServiceCard(context, services) {
@@ -146,5 +139,65 @@ class _ServiceListState extends State<ServiceList> {
   }
 }
 
+class CustomSearchDelegate extends SearchDelegate{
+  List<String> searchTerms = ServiceMock.getNames();
 
+
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(onPressed: (){
+        query = '';
+      }, icon: Icon(Icons.clear)),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return
+      IconButton(onPressed: (){
+        Navigator.pop(context);
+      }, icon: Icon(Icons.arrow_back))
+    ;
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var word in searchTerms){
+      if(word.toLowerCase().contains(query.toLowerCase())){
+        matchQuery.add(word);
+      }
+    }
+    return ListView.builder(
+        itemCount: matchQuery.length,
+        itemBuilder: (context, index) {
+      var result = matchQuery[index];
+      return ListTile(title: Text(result),);
+    });
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var word in searchTerms){
+      if(word.toLowerCase().contains(query.toLowerCase())){
+        matchQuery.add(word);
+      }
+    }
+    return ListView.builder(
+        itemCount: matchQuery.length,
+        itemBuilder: (context, index) {
+          var result = matchQuery[index];
+          return ListTile(title: Text(result ),onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ServiceDescriptionPage(myService: ServiceMock.getService(result))),
+            );
+          },);
+        });
+  }
+
+}
 

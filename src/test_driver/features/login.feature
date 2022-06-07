@@ -27,7 +27,6 @@ Feature: Open pages
     And I tap the "key_Autocarros" button
     Then I expect the text "Autocarros" to be present
 
-
   Scenario: Submit bug report
     Given I am logged in
     And I open the drawer
