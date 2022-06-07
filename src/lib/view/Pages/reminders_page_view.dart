@@ -48,11 +48,20 @@ class ReminderListState extends State<RemindersList>{
   DateTime newSelectedSchedule;
 
 
-  getNotifications(){
-    setState(() {
-      pendingReminders = Provider.of<NotificationService>(context, listen: false)
-          .getPendingNotifications();
+  getNotifications() async{
+
+    setState(() { //used to initialize the NotificationService
+      var notifsController = Provider.of<NotificationService>(context, listen: false);
+      pendingReminders = notifsController.getPendingNotifications();
     });
+
+    await Future.delayed(Duration(milliseconds: 750));
+    setState(() {
+      var notifsController = Provider.of<NotificationService>(context, listen: false);
+      pendingReminders = notifsController.getPendingNotifications();
+    });
+
+
   }
 
   deleteNotification(){
