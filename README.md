@@ -18,10 +18,8 @@ You can find here detailed about the product (or mini-app or module), from a hig
 - [Implementation](https://github.com/LEIC-ES-2021-22/3LEIC06T1/tree/main/docs/IterationLogs)
   - [Iteration 1](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/IterationLogs/Iteration1.md)
   - [Iteration 2](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/IterationLogs/Iteration2.md)
-- [Test]
-- [Configuration and change management]
-- [Project management]
-
+  - [Iteration 3](https://github.com/LEIC-ES-2021-22/3LEIC06T1/blob/main/docs/IterationLogs/Iteration3.md)
+  
 So far, contributions are exclusively made by the initial team, but we hope to open them to the community, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
 
 Please contact us!
