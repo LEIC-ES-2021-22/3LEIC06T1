@@ -131,7 +131,7 @@ class MyAppState extends State<MyApp> {
                     page: ServicePageView(), settings: settings); // to be changed
               case '/' + Constants.navMap:
                 return PageTransition.makePageTransition(
-                    page: MapPageView(), settings: settings); // to be changed
+                    page: MapPageView(null), settings: settings); // to be changed
               case '/' + Constants.navReminders:
                 return PageTransition.makePageTransition(
                     page: RemindersPageView(), settings: settings); // to be changed
