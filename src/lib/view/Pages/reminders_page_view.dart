@@ -28,6 +28,7 @@ class RemindersPageViewState extends SecondaryPageViewState {
       converter: (store) {
       },
       builder: (context, reminders) {
+
         return RemindersList();
       },
     );
@@ -46,6 +47,7 @@ class ReminderListState extends State<RemindersList>{
   num notificationID;
   DateTime newSelectedSchedule;
 
+
   getNotifications(){
     setState(() {
       pendingReminders = Provider.of<NotificationService>(context, listen: false)
@@ -57,6 +59,8 @@ class ReminderListState extends State<RemindersList>{
     setState(() {
       Provider.of<NotificationService>(context, listen: false)
           .deleteNotification(notificationID);
+      pendingReminders = Provider.of<NotificationService>(context, listen: false)
+          .getPendingNotifications();
     });
   }
 
@@ -64,6 +68,8 @@ class ReminderListState extends State<RemindersList>{
     setState(() {
       Provider.of<NotificationService>(context, listen: false)
           .editNotification(notificationID, newSelectedSchedule.toLocal());
+      pendingReminders = Provider.of<NotificationService>(context, listen: false)
+          .getPendingNotifications();
     });
   }
 
@@ -80,6 +86,7 @@ class ReminderListState extends State<RemindersList>{
               notificationID = reminder.id;
               editNotification();
               Navigator.pop(context);
+              setState(() {});
               setState(() {});
             },
             child: Text(

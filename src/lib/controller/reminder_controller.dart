@@ -1,74 +1,73 @@
 import 'dart:convert';
 import 'dart:core';
-import 'dart:core';
 import 'dart:developer';
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import 'dart:io';
 import 'package:uni/model/entities/service.dart';
 
 import '../model/entities/notification_data.dart';
+
 
 
 class NotificationService {
   FlutterLocalNotificationsPlugin reminderNotifications;
   num idCounter;
   List<NotificationData> notifications;
-  static const String jsonFile = 'notifications.json';
-
-  toJson(){
-    var map = {};
-    notifications.forEach((notif) =>
-    map[notif.id.toString()] = notif.toJson());
-    return map;
-  }
-
-  Future<void> fromJson() async {
-    final path = await _localPath;
-    final String response = await rootBundle.loadString('$path/$jsonFile');
-    final data = await json.decode(response);
-    data.forEach((key, value){
-      notifications.add(NotificationData.fromJson(value));
-    });
-  }
-
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/$jsonFile');
-  }
-
-  void _writeJson() async {
-    final _filePath = await _localFile;
-
-    Map<String, dynamic> _newJson = toJson();
-    print('1.(_writeJson) _newJson: $_newJson');
-
-
-    String jsonString = jsonEncode(_newJson);
-
-    await _filePath.writeAsString(jsonString);
-  }
-
-
+  static const String local_storare_key = 'notifications';
 
 
   NotificationService(){
     reminderNotifications = FlutterLocalNotificationsPlugin();
     _setupNotifications();
     notifications = [];
-    fromJson();
+    _load_locastorage_notifications();
     idCounter = 0;
+  }
+
+  Future<void> _load_locastorage_notifications() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> stored_notifications = prefs.getStringList(local_storare_key);
+    //_save_localstorage();
+    if (stored_notifications != null){
+      for (var i = 0; i < stored_notifications.length ; i++){
+
+        NotificationData saved_notif = NotificationData.parseString(stored_notifications[i]);
+
+        if (saved_notif != null){
+          notifications.add(saved_notif);
+        }
+      }
+    }
+
+    num stored_idCounter = prefs.getInt('notification_counter');
+    if (stored_idCounter != null){
+      idCounter = stored_idCounter;
+    }
+
+  }
+
+  Future<void> _save_localstorage() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> notifications_tostring = [];
+    //print("before the for in _save_localstorage");
+    for(var i = 0; i < notifications.length; i++){
+      notifications_tostring.add(
+          notifications[i].toString()
+      );
+    }
+    //print("after the for in _save_localstorage");
+
+    prefs.setStringList(local_storare_key, notifications_tostring);
+    prefs.setInt('notification_counter', idCounter);
   }
 
   _setupNotifications() async{
@@ -84,7 +83,7 @@ class NotificationService {
   }
 
   _initializeNotifications() async{
-    final androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
+    final androidInit = AndroidInitializationSettings('@drawable/ic_notification');
     final iOSInit = IOSInitializationSettings();
     final initSettings = InitializationSettings(
         android: androidInit,
@@ -98,13 +97,13 @@ class NotificationService {
   }
 
   Future _onSelectNotification(String payload) async{
-    deleteNotification(int.parse(payload));
-    if(payload != null && payload.isNotEmpty){
-      /*Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ServiceDescPageView('/' + payload)),
-      );*/
+    for (int x = 0; x < notifications.length; x++){
+      if (notifications[x].id == int.parse(payload)){
+        String service_name = notifications[x].title;
+      }
     }
+    deleteNotification(int.parse(payload));
+
   }
 
   checkForNotifications() async{
@@ -119,16 +118,20 @@ class NotificationService {
 
   Future addNotification(DateTime notifSchedule, Service service) async{
     final androidDetails = AndroidNotificationDetails(
+
       'Reminder ID',
       'Reminders',
       channelDescription: "Reminders' notification",
       importance: Importance.max,
       priority: Priority.max,
       enableVibration: true,
+        color: Color.fromARGB(255, 0x75, 0x17, 0x1e)
+
     );
     final iOSDetails = IOSNotificationDetails();
     NotificationDetails(android: androidDetails,
-        iOS: iOSDetails);
+        iOS: iOSDetails
+    );
 
     DateTime schedule = tz.TZDateTime.from(notifSchedule, tz.local);
 
@@ -155,7 +158,9 @@ class NotificationService {
 
     idCounter += 1;
 
-    _writeJson();
+    _save_localstorage();
+
+
   }
 
   Future deleteNotification(num notificationID) async{
@@ -166,28 +171,31 @@ class NotificationService {
     }
     await reminderNotifications.cancel(notificationID);
 
-    _writeJson();
+    _save_localstorage();
+
+
   }
 
   Future deleteAllNotification() async{
     notifications = [];
     await reminderNotifications.cancelAll();
-    _writeJson();
+
+    _save_localstorage();
   }
 
+
   List<NotificationData> getPendingNotifications(){
-    return notifications;
+    final pendingNotifications = notifications;
+    return pendingNotifications;
   }
 
   Future editNotification(num notificationID, DateTime notifSchedule) async{
-    final List<NotificationData> pendingNotificationRequests =
+    final List<NotificationData> pendingNotificationRequests = await
         getPendingNotifications();
 
     for(var notif in pendingNotificationRequests){
       if (notif.id == notificationID){
         final title = notif.title;
-        final body = notif.body;
-
         deleteNotification(notificationID);
         //create new notif with the same text
         final androidDetails = AndroidNotificationDetails(
@@ -219,7 +227,8 @@ class NotificationService {
         notifications.add(NotificationData(id: idCounter, title: title, body: schedule.toLocal().toString()));
         idCounter += 1;
 
-        _writeJson();
+        _save_localstorage();
+
         return;
       }
     }
