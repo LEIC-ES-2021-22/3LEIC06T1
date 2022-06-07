@@ -61,13 +61,12 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  static final Completer<GoogleMapController> _controller = Completer();
+  Completer<GoogleMapController> _controller = Completer();
   Set<Marker> _markers = {};
   BitmapDescriptor currentPosIcon;
-  static final Map<String, LatLng> services = HashMap();
-  static final Map<String, String> servicesInfo = HashMap();
+  Map<String, LatLng> services = HashMap();
+  Map<String, String> servicesInfo = HashMap();
   List<Service> serviceList;
-  static final _formKey2 =  GlobalKey<FormState>();
 
   String service;
 
@@ -131,29 +130,29 @@ class MapSampleState extends State<MapSample> {
         );
       case "SDInf":
         return CameraPosition(
-        target: LatLng(41.17746504425501, -8.594736036826815),
-        zoom: 17.0,
-        bearing: 90.0);
+            target: LatLng(41.17746504425501, -8.594736036826815),
+            zoom: 17.0,
+            bearing: 90.0);
       case "SICC":
         return CameraPosition(
-        target: LatLng(41.17781754970367, -8.595047200753985),
-        zoom: 17.0,
-        bearing: 90.0);
+            target: LatLng(41.17781754970367, -8.595047200753985),
+            zoom: 17.0,
+            bearing: 90.0);
       case "SRH":
         return CameraPosition(
-        target: LatLng(41.17813855720173, -8.597663632785746),
-        zoom: 17.0,
-        bearing: 90.0);
+            target: LatLng(41.17813855720173, -8.597663632785746),
+            zoom: 17.0,
+            bearing: 90.0);
       case "SEF":
         return CameraPosition(
-        target: LatLng(41.17823949752264, -8.597561708852806),
-        zoom: 17.0,
-        bearing: 90.0);
+            target: LatLng(41.17823949752264, -8.597561708852806),
+            zoom: 17.0,
+            bearing: 90.0);
       case "STMA":
         return CameraPosition(
-        target: LatLng(41.17772584745011, -8.596755364495348),
-        zoom: 17.0,
-        bearing: 90.0);
+            target: LatLng(41.17772584745011, -8.596755364495348),
+            zoom: 17.0,
+            bearing: 90.0);
       default:
         return _kGooglePlex;
     }
@@ -162,23 +161,20 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Column(
-          key:_formKey2,
+          children:[
 
-        children:[
-          Expanded(
-            child: GoogleMap(
-
-              mapType: MapType.normal,
-              markers: _markers,
-              initialCameraPosition: initialPosition(),
-              onMapCreated: _onMapCreated,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
-            ),
-          )
-        ]),
+            Expanded(
+              child: GoogleMap(
+                mapType: MapType.normal,
+                markers: _markers,
+                initialCameraPosition: initialPosition(),
+                onMapCreated: _onMapCreated,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+              ),
+            )
+          ]),
       /*floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
         label: Text('To the lake!'),
